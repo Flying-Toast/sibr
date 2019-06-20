@@ -1,0 +1,15 @@
+.dub
+docs.json
+__dummy.html
+docs/
+/reviv
+reviv.so
+reviv.dylib
+reviv.dll
+reviv.a
+reviv.lib
+reviv-test-*
+*.exe
+*.o
+*.obj
+*.lst

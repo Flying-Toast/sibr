@@ -1,0 +1,6 @@
+name "reviv"
+description "surviv.io clone"
+authors "Flying-Toast"
+copyright "Copyright © 2019, Flying-Toast"
+license "GPL3"
+dependency "vibe-d" version="~>0.8.5"
