@@ -1,9 +1,30 @@
 module reviv.webserver.server;
 
 import vibe.vibe;
+import reviv.webserver.queues;
 
 final class WebServer {
+	private ushort lastSocketID;///The id of the last socket. Incremented each time a new socket connects.
+
 	void getWS(scope WebSocket socket) {
+		auto socketID = lastSocketID++;
+
+		//Send queued outgoing messages
+		auto sender = runTask({
+			while (socket.connected) {
+				outQueue.waitForSend();
+				while (outQueue.messageAvailable(socketID)) {
+					socket.send(outQueue.nextMessage(socketID));
+				}
+			}
+		});
+
+		//Add received messages to the incoming queue
+		while (socket.waitForData()) {
+			outQueue.queueMessage(socketID, socket.receiveText());
+		}
+
+		sender.join();
 	}
 
 	static void errorPage(HTTPServerRequest req, HTTPServerResponse res, HTTPServerErrorInfo err) {

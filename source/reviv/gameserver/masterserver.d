@@ -33,3 +33,21 @@ class MasterServer {
 		return game;
 	}
 }
+
+
+///Starts the master game.
+void runGame() {
+	import std.concurrency : receiveTimeout;
+	import core.time : Duration;
+
+	//runGame() (the master game loop) shouln't exit. If it does exit, it means there was a crash. In that case, kill the other threads too, so the application can be restarted.
+	scope (exit) {
+		import core.stdc.stdlib;
+		_Exit(EXIT_FAILURE);
+	}
+
+	auto master = new MasterServer;
+	while (true) {
+		receiveTimeout(Duration.min);//This doesn't receive anything, but it is here so that when the owner thread terminates, OwnerTerminated will be thrown thus terminating this thread.
+	}
+}
