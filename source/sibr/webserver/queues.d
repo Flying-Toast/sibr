@@ -1,9 +1,9 @@
 ///Global in/out queues
-module reviv.webserver.queues;
+module sibr.webserver.queues;
 
-import reviv.webserver.incomingqueue;
-import reviv.webserver.outgoingqueue;
-import reviv.webserver.connectionqueue;
+import sibr.webserver.incomingqueue;
+import sibr.webserver.outgoingqueue;
+import sibr.webserver.connectionqueue;
 
 shared {
 	IncomingQueue inQueue;

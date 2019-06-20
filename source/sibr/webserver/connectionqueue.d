@@ -1,4 +1,4 @@
-module reviv.webserver.connectionqueue;
+module sibr.webserver.connectionqueue;
 
 ///A queue of sockets that have just connected and are waiting for a game
 shared class ConnectionQueue {

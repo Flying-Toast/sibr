@@ -1,7 +1,7 @@
-module reviv.webserver.server;
+module sibr.webserver.server;
 
 import vibe.vibe;
-import reviv.webserver.queues;
+import sibr.webserver.queues;
 
 final class WebServer {
 	private ushort lastSocketID;///The id of the last socket. Incremented each time a new socket connects.

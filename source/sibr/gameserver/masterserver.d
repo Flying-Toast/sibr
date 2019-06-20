@@ -1,7 +1,7 @@
-module reviv.gameserver.masterserver;
+module sibr.gameserver.masterserver;
 
-import reviv.webserver.queues;
-import reviv.gameserver.game;
+import sibr.webserver.queues;
+import sibr.gameserver.game;
 
 ///Holds all the currently running games
 class MasterServer {

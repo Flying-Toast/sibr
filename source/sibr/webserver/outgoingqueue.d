@@ -1,7 +1,7 @@
-module reviv.webserver.outgoingqueue;
+module sibr.webserver.outgoingqueue;
 
 import vibe.vibe;
-import reviv.webserver.incomingqueue;
+import sibr.webserver.incomingqueue;
 
 ///A queue of outgoing messages to clients.
 shared class OutgoingQueue : IncomingQueue {

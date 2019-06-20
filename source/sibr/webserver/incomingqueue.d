@@ -1,4 +1,4 @@
-module reviv.webserver.incomingqueue;
+module sibr.webserver.incomingqueue;
 
 ///A queue of incoming messages from clients.
 shared class IncomingQueue {

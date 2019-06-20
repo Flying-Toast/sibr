@@ -1,7 +1,7 @@
-import reviv.webserver.server;
+import sibr.webserver.server;
 
 import std.concurrency;
-import reviv.gameserver.masterserver : runGame;
+import sibr.gameserver.masterserver : runGame;
 
 void main() {
 	spawn(&runGame);
