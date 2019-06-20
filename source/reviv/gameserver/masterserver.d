@@ -1,5 +1,6 @@
 module reviv.gameserver.masterserver;
 
+import reviv.webserver.queues;
 import reviv.gameserver.game;
 
 ///Holds all the currently running games
@@ -48,8 +49,14 @@ void runGame() {
 	}
 
 	auto master = new MasterServer;
+
+	//master loop
 	while (true) {
 		receiveTimeout(Duration.min);//This doesn't receive anything, but it is here so that when the owner thread terminates, OwnerTerminated will be thrown thus terminating this thread.
+
+		foreach (id; connectionQueue.getConnections()) {
+
+		}
 
 		Thread.sleep(Duration.zero);
 	}

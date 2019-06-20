@@ -19,9 +19,14 @@ final class WebServer {
 			}
 		});
 
+		bool connected = false;
 		//Add received messages to the incoming queue
 		while (socket.waitForData()) {
 			inQueue.queueMessage(socketID, socket.receiveText());
+			if (!connected) {
+				connectionQueue.addConnection(socketID);
+				connected = true;
+			}
 		}
 
 		sender.join();
