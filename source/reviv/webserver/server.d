@@ -21,7 +21,7 @@ final class WebServer {
 
 		//Add received messages to the incoming queue
 		while (socket.waitForData()) {
-			outQueue.queueMessage(socketID, socket.receiveText());
+			inQueue.queueMessage(socketID, socket.receiveText());
 		}
 
 		sender.join();
