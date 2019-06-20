@@ -55,7 +55,7 @@ void runGame() {
 		receiveTimeout(Duration.min);//This doesn't receive anything, but it is here so that when the owner thread terminates, OwnerTerminated will be thrown thus terminating this thread.
 
 		foreach (id; connectionQueue.getConnections()) {
-
+			//TODO: create a player with the id and add it to a server
 		}
 
 		Thread.sleep(Duration.zero);
