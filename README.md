@@ -1,2 +1,2 @@
 # reviv
-surviv.io clone
+Side-scrolling battle royale game

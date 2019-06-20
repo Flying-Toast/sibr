@@ -1,5 +1,5 @@
 name "reviv"
-description "surviv.io clone"
+description "Side-scrolling battle royale game"
 authors "Flying-Toast"
 copyright "Copyright © 2019, Flying-Toast"
 license "GPL3"
