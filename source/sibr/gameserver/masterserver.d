@@ -2,6 +2,7 @@ module sibr.gameserver.masterserver;
 
 import sibr.webserver.queues;
 import sibr.gameserver.game;
+import sibr.gameserver.player;
 
 ///Holds all the currently running games
 class MasterServer {
@@ -55,7 +56,8 @@ void runGame() {
 		receiveTimeout(Duration.min);//This doesn't receive anything, but it is here so that when the owner thread terminates, OwnerTerminated will be thrown thus terminating this thread.
 
 		foreach (id; connectionQueue.getConnections()) {
-			//TODO: create a player with the id and add it to a server
+			auto playerConfig = new PlayerConfig(inQueue.nextMessage(id), id);
+			//TODO: create and add a player
 		}
 
 		Thread.sleep(Duration.zero);
