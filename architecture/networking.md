@@ -38,18 +38,21 @@ properties:<br>
 
 ---
 
-\*This isn't implemented yet:\*<br>
-Once the server receives the configuration message, it sends back a reply in this format:
+Once the server receives the configuration message, it replies with a 'welcome message'. The purpose of the welcome message is to inform the client on the current state of the game and prepare the client for the incoming "update" messages.
 ```JSON
 {
-	"type": "yourId",
+	"type": "welcome",
 	"data": {
-		"id": <integer>
+		"yourID": <integer>,
+		"state": {
+			/*API to be determined...*/
+		}
 	}
 }
 ```
 data properties:<br>
-`id`:  An id unique to this websocket connection. This will probably be used for something later (maybe so the client can identify which entity is their player), so the client should remember it.
+`yourID`:  An id unique to this websocket connection. This will probably be used for something later (maybe so the client can identify which entity is their player), so the client should remember it.<br>
+`state`: The game state.
 
 ---
 
@@ -63,3 +66,5 @@ After this, the server then begins the normal update loop. During this loop, the
 	}
 }
 ```
+data properties:<br>
+to be determined...

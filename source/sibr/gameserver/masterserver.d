@@ -24,6 +24,13 @@ class MasterServer {
 		lastTick = currentTime;
 	}
 
+	///Adds the player described by `config` to an available server.
+	void addPlayerToGame(PlayerConfig config) {
+		auto game = getAvailableGame();
+		//TODO: add the player to `game`
+		game.sendWelcomeMessage(config.socketID);
+	}
+
 	/**
 		Finds an available Game (one that has room for more players).
 		If there are no Games available, a new one is created.
@@ -76,7 +83,7 @@ void runGame() {
 
 		foreach (id; connectionQueue.getConnections()) {
 			auto playerConfig = new PlayerConfig(inQueue.nextMessage(id), id);
-			//TODO: create and add a player
+			master.addPlayerToGame(playerConfig);
 		}
 
 		master.tick();
