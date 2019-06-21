@@ -3,16 +3,9 @@ module sibr.gameserver.player;
 import cfg = sibr.config;
 
 /**
-The client's options for the player
-
-When a client connects, the first message that they send to the server is a config message.
-The config message contains the things like:
-	the client's nickname
-	party id (if playing in team/party mode) (not implemented yet)
-	etc.
-
+When a client connects, the first message that they send to the server is a config message with options about their player.
 The config message needs these properties:
-```
+```JSON
 {
 	"nickname": "<player name>"
 }
