@@ -33,8 +33,8 @@ The configuration message is in this format:
 	"nickname": <string>
 }
 ```
-properties:
--`nickname`: the nickname that the user has chosen.
+properties:<br>
+`nickname`: the nickname that the user has chosen.
 
 ---
 
@@ -47,8 +47,8 @@ Once the server receives the configuration message, it sends back a reply in thi
 	}
 }
 ```
-data properties:
--`id`:  An id unique to this websocket connection. This will probably be used for something later (maybe so the client can identify which entity is their player), so the client should remember it.
+data properties:<br>
+`id`:  An id unique to this websocket connection. This will probably be used for something later (maybe so the client can identify which entity is their player), so the client should remember it.
 
 ---
 
