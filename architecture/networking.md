@@ -52,6 +52,7 @@ data properties:<br>
 
 ---
 
+\*This isn't implemented yet:\*
 After this, the server then begins the normal update loop. During this loop, the server sends game updates every few milliseconds. The game updates are in this format:
 ```JSON
 {
