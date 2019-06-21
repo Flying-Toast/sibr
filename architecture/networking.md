@@ -38,6 +38,7 @@ properties:<br>
 
 ---
 
+\*This isn't implemented yet:\*<br>
 Once the server receives the configuration message, it sends back a reply in this format:
 ```JSON
 {
@@ -52,7 +53,7 @@ data properties:<br>
 
 ---
 
-\*This isn't implemented yet:\*
+\*This isn't implemented yet:\*<br>
 After this, the server then begins the normal update loop. During this loop, the server sends game updates every few milliseconds. The game updates are in this format:
 ```JSON
 {
