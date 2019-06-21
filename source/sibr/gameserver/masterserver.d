@@ -2,7 +2,7 @@ module sibr.gameserver.masterserver;
 
 import sibr.webserver.queues;
 import sibr.gameserver.game;
-import sibr.gameserver.player;
+import sibr.gameserver.configmessage;
 import sibr.gameserver.utils;
 import cfg = sibr.config;
 
@@ -25,7 +25,7 @@ class MasterServer {
 	}
 
 	///Adds the player described by `config` to an available server.
-	void addPlayerToGame(PlayerConfig config) {
+	void addPlayerToGame(ConfigMessage config) {
 		auto game = getAvailableGame();
 		//TODO: add the player to `game`
 		game.sendWelcomeMessage(config.socketID);
@@ -82,7 +82,7 @@ void runGame() {
 		receiveTimeout(Duration.min);//This doesn't receive anything, but it is here so that when the owner thread terminates, OwnerTerminated will be thrown thus terminating this thread.
 
 		foreach (id; connectionQueue.getConnections()) {
-			auto playerConfig = new PlayerConfig(inQueue.nextMessage(id), id);
+			auto playerConfig = new ConfigMessage(inQueue.nextMessage(id), id);
 			master.addPlayerToGame(playerConfig);
 		}
 

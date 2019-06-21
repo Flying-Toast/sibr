@@ -43,7 +43,6 @@ Once the server receives the configuration message, it replies with a 'welcome m
 {
 	"type": "welcome",
 	"data": {
-		"yourID": <integer>,
 		"state": {
 			/*API to be determined...*/
 		}
@@ -51,7 +50,6 @@ Once the server receives the configuration message, it replies with a 'welcome m
 }
 ```
 data properties:<br>
-`yourID`:  An id unique to this websocket connection. This will probably be used for something later (maybe so the client can identify which entity is their player), so the client should remember it.<br>
 `state`: The game state.
 
 ---

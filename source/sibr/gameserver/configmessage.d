@@ -1,19 +1,11 @@
-module sibr.gameserver.player;
+module sibr.gameserver.configmessage;
 
 import cfg = sibr.config;
 
-/**
-When a client connects, the first message that they send to the server is a config message with options about their player.
-The config message needs these properties:
-```JSON
-{
-	"nickname": "<player name>"
-}
-```
-*/
-class PlayerConfig {
+///Data class for the clients 'config message' (see architecture/networking.md)
+class ConfigMessage {
 	immutable string nickname;
-	immutable ushort socketID;///The id of the websocket connected to this player
+	immutable ushort socketID;///The id of the websocket whose configmessage this is.
 
 	this(string configJSON, ushort id) {
 		import std.json;
