@@ -4,3 +4,6 @@ module sibr.config;
 enum maxNicknameLength = 16;
 
 enum defaultNickname = "Player";
+
+///How often (in milliseconds) queued messages are sent
+enum messageSendInterval = 100;
