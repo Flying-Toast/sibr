@@ -1,11 +1,20 @@
 # SiBR
-Side-scrolling battle royale game
+**Si**de-scrolling **B**attle **R**oyale
 
-Testing the client:
+## Testing
 
+### 1
 ```bash
 $ cd client
 $ npm install
 $ npm run start
 ```
-Open localhost:8080 in your browser
+
+### 2
+Open a new terminal window and run:
+```bash
+$ dub run
+```
+
+### 3
+Open http://localhost:8080 in your browser
