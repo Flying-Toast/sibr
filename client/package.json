@@ -11,6 +11,7 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "@types/jquery": "^3.3.29",
     "css-loader": "^3.0.0",
     "file-loader": "^4.0.0",
     "style-loader": "^0.23.1",
@@ -22,6 +23,7 @@
   },
   "dependencies": {
     "@types/pixi.js": "^4.8.8",
+    "jquery": "^3.4.1",
     "pixi.js": "^5.0.4"
   }
 }

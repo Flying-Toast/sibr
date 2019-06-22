@@ -86,6 +86,6 @@ void runGame() {
 
 		master.tick();
 
-		Thread.sleep(Duration.zero);
+		Thread.sleep(dur!"msecs"(5));
 	}
 }

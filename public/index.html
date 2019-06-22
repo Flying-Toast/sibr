@@ -3,10 +3,26 @@
     <head>
         <title>SiBR - Sidescrolling Battle Royale</title>
         <meta charset="utf-8">
-        <style>
-        </style>
     </head>
     <body>
         <script src="bundle.js" charset="UTF-8"></script>
+        <div class="overlay">
+            <div class="mainmenu">
+                <p id="networkstatus">Connecting...</p>
+                <div class="startwindow">
+                    <h1>SiBR</h1>
+                    <b>Si</b>de scrolling <b>B</b>attle <b>R</b>oyale
+                    <br><br>
+                    Nickname:<input id="nickname">
+                    <br>
+                    <button class="modebutton" onclick="window.startgame()">Solo</button>
+                    <br>
+                    <button class="modebutton" disabled>Duo</button>
+                    <br>
+                    <button class="modebutton" disabled>Squads</button>
+                    <br>
+                </div>
+            </div>
+        </div>
     </body>
 </html>

@@ -7,3 +7,32 @@ body {
 canvas {
     display:block;
 }
+
+.overlay {
+    width: 100%;
+    height: 100%;
+    left: 0;
+    top: 0;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    position: absolute;
+    color: white;
+}
+
+.mainmenu {
+    display: grid;
+    grid-template-columns: 25% auto 25%;
+    grid-template-rows: 25% auto 25%;
+    height: 100%;
+}
+.startwindow {
+    text-align: center;
+    grid-column: 2;
+    grid-row: 2;
+    background-color: red;
+}
+
+.modebutton {
+    width: 200px;
+}
