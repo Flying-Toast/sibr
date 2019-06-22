@@ -11,12 +11,12 @@ const app = new PIXI.Application({
     autoResize: true
 });
 document.body.appendChild(app.view);
-window.addEventListener('resize', resize);
+window.addEventListener('resize', resize); // Dynamically resize canvas
 
 const wsURL = `ws${(location.protocol==="https:")?"s":""}://${location.host}/ws`;
 var network = new Network(wsURL);
 network.onReady = ()=>{
-    $("#networkstatus").text("");
+    $("#networkstatus").text(""); // Remove "Connecting..." message on the homescreen
 };
 
 var game: Game;
@@ -30,5 +30,6 @@ resize();
 (<any> window).startgame = ()=>{
     network.startGame(<string> $("#nickname").val());
     game = new Game(network);
+    $(".mainmenu").hide();
 }
 
