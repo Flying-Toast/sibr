@@ -26,9 +26,7 @@ class MasterServer {
 
 	///Adds the player described by `config` to an available server.
 	void addPlayerToGame(ConfigMessage config) {
-		auto game = getAvailableGame();
-		//TODO: add the player to `game`
-		game.sendWelcomeMessage(config.socketID);
+		getAvailableGame().clientJoin(config);
 	}
 
 	/**
