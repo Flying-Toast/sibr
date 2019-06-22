@@ -38,7 +38,7 @@ properties:<br>
 
 ---
 
-Once the server receives the configuration message, it replies with a 'welcome message'. The purpose of the welcome message is to inform the client on the current state of the game and prepare the client for the incoming "update" messages.
+Once the server receives the configuration message, it replies with a 'welcome message'. The purpose of the welcome message is to inform the client of the current state of the game and prepare the client for the incoming "update" messages.
 ```JSON
 {
 	"type": "welcome",
