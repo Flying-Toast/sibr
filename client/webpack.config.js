@@ -12,11 +12,15 @@ module.exports = {
                 exclude: /node_modules/
             },
             {
-                 test: /\.(png|svg|jpg|gif)$/,
-                 use: [
-                     'file-loader'
-                 ]
-            }
+                test: /\.(png|svg|jpg|gif)$/,
+                use: [
+                    'file-loader'
+                ]
+            },
+            {
+                test: /\.css$/i,
+                use: ['style-loader', 'css-loader'],
+            },
         ]
     },
     resolve: {
