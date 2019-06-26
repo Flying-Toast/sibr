@@ -1,6 +1,5 @@
 module sibr.gameserver.entitymanager;
 
-import std.algorithm.searching : canFind;
 import sibr.gameserver.component;
 
 alias entityID_t = ushort;
