@@ -26,7 +26,7 @@ shared class IncomingQueue {
 	}
 
 	///Removes a socket's queue.
-	private void removeQueue(ushort id) {
+	void removeQueue(ushort id) {
 		messages.remove(id);
 	}
 }
