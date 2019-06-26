@@ -1,8 +1,16 @@
 module sibr.gameserver.component;
 
-import std.meta : AliasSeq;
+import std.meta;
 
-alias ComponentTypes = AliasSeq!(NicknameC, NetworkC);
+alias ComponentTypes = AliasSeq!(NicknameC, NetworkC);///All component types
+
+alias ClientComponentTypes = Filter!(isClientComponent, ComponentTypes);///Components that clients see
+private template isClientComponent(T) {
+	import std.traits;
+	enum isClientComponent = hasUDA!(T, clientVisible);
+}
+private enum clientVisible;///Used as an attribute to mark a component as being visible to clients.
+
 
 class NetworkC {
 	immutable ushort socketID;
@@ -12,6 +20,7 @@ class NetworkC {
 	}
 }
 
+@clientVisible
 class NicknameC {
 	immutable string nickname;
 
