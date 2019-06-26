@@ -2,14 +2,23 @@ module sibr.gameserver.game;
 
 import sibr.gameserver.configmessage;
 import sibr.gameserver.entitymanager;
+import sibr.gameserver.system;
+import sibr.gameserver.utils;
 
 class Game {
 	private {
 		EntityManager entityManager;
+		System[] systems;
+		long lastTick;
 	}
 
 	void tick() {
-
+		immutable currentTime = millis();
+		immutable dt = currentTime - lastTick;
+		foreach (s; systems) {
+			s.tick(dt);
+		}
+		lastTick = currentTime;
 	}
 
 	///Whether or not this Game can accept new players
@@ -19,27 +28,13 @@ class Game {
 
 	///Add a new client to the game
 	void clientJoin(ConfigMessage config) {
-		//TODO: add the client to the game
-		sendWelcomeMessage(config.socketID);
-	}
-
-	///Sends a 'welcome message' (see architecture/networking.md) to the socket `socketID`.
-	//TODO: this function should probably be in 'network' system, and socketID should probably be in a 'networkable' component
-	private void sendWelcomeMessage(ushort socketID) {
-		import sibr.webserver.queues;
-		import std.json;
-
-		JSONValue messageJSON = JSONValue(["type": "welcome"]);
-		JSONValue dataJSON = JSONValue();
-		dataJSON["state"] = JSONValue(["api_to_be_determined": "api_to_be_determined"]);//TODO: API (and this whole function should be in a 'network' system)
-		messageJSON["data"] = dataJSON;
-
-		string message = messageJSON.toString();
-
-		outQueue.queueMessage(socketID, message);
+		entityManager.createPlayer(config.nickname, config.socketID);
 	}
 
 	this() {
 		entityManager = new EntityManager;
+		systems = createSystems(entityManager);
+		//initialize lastTick to the current time so that the first tick won't have a giant deltatime.
+		lastTick = millis();
 	}
 }

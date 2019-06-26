@@ -69,3 +69,12 @@ class EntityManager {
 		return mixin(arrayName!T)[id] !is null;
 	}
 }
+
+entityID_t createPlayer(EntityManager em, string nickname, ushort socketID) {
+	immutable id = em.createEntity();
+
+	em.addComponent(id, new NicknameC(nickname));
+	em.addComponent(id, new NetworkC(socketID));
+
+	return id;
+}
