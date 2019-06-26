@@ -4,6 +4,7 @@ import sibr.gameserver.component;
 
 alias entityID_t = ushort;
 
+///The name of the array that components of type `T` are stored in
 private template arrayName(T) {
 	enum arrayName = "component_"~__traits(identifier, T)~"_list";
 }
@@ -29,6 +30,7 @@ class EntityManager {
 
 			return id;
 		} else {
+			//resize the component arrays to allocate space for a new entity
 			static foreach (alias T; ComponentTypes) {
 				mixin(arrayName!T).length++;
 			}
@@ -38,6 +40,7 @@ class EntityManager {
 
 	///Deletes the entity `id`.
 	void removeEntity(entityID_t id) {
+		//remove all of the entity's components
 		static foreach (alias T; ComponentTypes) {
 			removeComponent!T(id);
 		}
