@@ -18,11 +18,15 @@ shared class IncomingQueue {
 	string nextMessage(ushort id) {
 		immutable message = messages[id][0];
 		messages[id] = messages[id][1 .. $];
+		//remove the queue if it is empty
+		if (messages[id].length == 0) {
+			removeQueue(id);
+		}
 		return message;
 	}
 
 	///Removes a socket's queue.
-	void removeQueue(ushort id) {
+	private void removeQueue(ushort id) {
 		messages.remove(id);
 	}
 }
