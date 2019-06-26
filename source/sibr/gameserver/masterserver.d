@@ -21,6 +21,10 @@ class MasterServer {
 			outQueue.sendMessages();
 		}
 
+		foreach (game; games) {
+			game.tick();
+		}
+
 		lastTick = currentTime;
 	}
 

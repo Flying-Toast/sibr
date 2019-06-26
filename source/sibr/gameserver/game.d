@@ -3,6 +3,10 @@ module sibr.gameserver.game;
 import sibr.gameserver.configmessage;
 
 class Game {
+	void tick() {
+
+	}
+
 	///Whether or not this Game can accept new players
 	bool joinable() {
 		return true;//TODO: implement
