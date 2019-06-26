@@ -8,6 +8,12 @@ alias ClientComponentTypes = Filter!(isClientComponent, ComponentTypes);///Compo
 private template isClientComponent(T) {
 	import std.traits;
 	enum isClientComponent = hasUDA!(T, clientVisible);
+	static if (isClientComponent) {
+		import vibe.vibe : IgnoreAttribute;
+		static assert(is(typeof(T.lastJSONHash) == size_t), "clientComponent does not have a `size_t lastJSONHash` property");
+		static assert(!hasStaticMember!(T, "lastJSONHash"), "clientComponent's `lastJSONHash` property shouldn't be static");
+		static assert(hasUDA!(T.lastJSONHash, IgnoreAttribute), "clientComponent's `lastJSONHash` property doesn't have @ignore attribute");
+	}
 }
 private enum clientVisible;///Used as an attribute to mark a component as being visible to clients.
 
@@ -22,6 +28,9 @@ class NetworkC {
 
 @clientVisible
 class NicknameC {
+	@ignore size_t lastJSONHash;
+
+	//component-specific properties:
 	immutable string nickname;
 
 	this(string nickname) {
