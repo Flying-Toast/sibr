@@ -20,10 +20,16 @@ private enum clientVisible;///Used as an attribute to mark a component as being 
 
 
 class NetworkC {
+	enum ConnectionState {
+		justConnected,
+		welcomed
+	}
+	ConnectionState state;
 	immutable ushort socketID;
 
 	this(ushort socketID) {
 		this.socketID = socketID;
+		state = ConnectionState.justConnected;
 	}
 }
 

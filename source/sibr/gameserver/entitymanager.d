@@ -9,6 +9,7 @@ private template arrayName(T) {
 	enum arrayName = "component_"~__traits(identifier, T)~"_list";
 }
 
+///A class that semantically links an entity and its components
 class EntityManager {
 	private {
 		entityID_t[] freeIDs;///IDs that are allocated but unused
@@ -46,6 +47,11 @@ class EntityManager {
 		}
 
 		freeIDs ~= id;
+	}
+
+	///Gets an array of all the components of type `T`, indexed by entity id.
+	T[] getComponents(T)() {
+		return mixin(arrayName!T);
 	}
 
 	///Adds `component` to the entity `id`.
