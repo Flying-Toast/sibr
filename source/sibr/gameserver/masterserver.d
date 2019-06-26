@@ -84,7 +84,16 @@ void runGame() {
 		receiveTimeout(Duration.min);//This doesn't receive anything, but it is here so that when the owner thread terminates, OwnerTerminated will be thrown thus terminating this thread.
 
 		foreach (id; connectionQueue.getConnections()) {
-			auto playerConfig = new ConfigMessage(inQueue.nextMessage(id), id);
+			ConfigMessage playerConfig;
+			//catch any invalid messages
+			try {
+				playerConfig = new ConfigMessage(inQueue.nextMessage(id), id);
+			} catch (Throwable t) {
+				import std.stdio;
+				stderr.writeln("An invalid config message was ignored.");
+				//TODO: close the connection
+				continue;
+			}
 			master.addPlayerToGame(playerConfig);
 		}
 
