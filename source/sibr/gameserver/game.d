@@ -1,8 +1,13 @@
 module sibr.gameserver.game;
 
 import sibr.gameserver.configmessage;
+import sibr.gameserver.entitymanager;
 
 class Game {
+	private {
+		EntityManager entityManager;
+	}
+
 	void tick() {
 
 	}
@@ -32,5 +37,9 @@ class Game {
 		string message = messageJSON.toString();
 
 		outQueue.queueMessage(socketID, message);
+	}
+
+	this() {
+		entityManager = new EntityManager;
 	}
 }
