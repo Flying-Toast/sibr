@@ -1,5 +1,6 @@
 module sibr.gameserver.component;
 
+import vibe.vibe : ignore;
 import std.meta;
 
 alias ComponentTypes = AliasSeq!(NicknameC, NetworkC);///All component types
