@@ -27,6 +27,7 @@ function resize() {
 }
 resize();
 
+// module functions made externally accessable via the window instance 
 (<any> window).startgame = ()=>{
     network.startGame(<string> $("#nickname").val());
     game = new Game(network);

@@ -1,13 +1,13 @@
-interface Callback {
+interface Callback {        // Defines a type for Typescript that signifies roughly Map<string, Function>
     [K: string]: Function;
 }
 
 export class Network {
-    socket: WebSocket;
-    url: string;
-    socketReady = false;
+    socket: WebSocket;      // The native websocket instance
+    url: string;            // The url of the websocket server
+    socketReady = false;    // Whether the socket has connected or not
 
-    onReady: Function;
+    onReady: Function;      // Callback for when the socket connects
 
     // Callbacks on a WebSocket message for a given JSON .type value
     tempCallbacks: Callback = {};     // callbacks that are meant to be called only once
