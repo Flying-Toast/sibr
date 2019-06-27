@@ -30,3 +30,4 @@ Equivalent to `[cos(theta), sin(theta)]` where theta is the angle.
 
 ## `float32 deltaTime`
 
+The time since last update

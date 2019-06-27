@@ -1,9 +1,17 @@
+interface Callback {
+    [K: string]: Function;
+}
+
 export class Network {
     socket: WebSocket;
     url: string;
     socketReady = false;
 
     onReady: Function;
+
+    // Callbacks on a WebSocket message for a given JSON .type value
+    tempCallbacks: Callback = {};     // callbacks that are meant to be called only once
+    messageCallbacks: Callback = {};  // regular callbacks
 
     constructor (url: string) {
         this.url = url;
@@ -12,18 +20,39 @@ export class Network {
             this.socketReady = true;
             this.onReady();
         }.bind(this));
+        this.socket.onmessage = this.handleSocketMessage;
     }
     
+    handleSocketMessage(event: MessageEvent) {
+        const data = JSON.parse(event.data);
+        const type = data.type;
+        
+        if (this.tempCallbacks[type]) {
+            this.tempCallbacks[type](data);
+            delete this.tempCallbacks[type];
+        }
+
+        if (this.messageCallbacks[type]) {
+            this.messageCallbacks[type](data);
+        }
+    }
+
     send(data: any) {
         this.socket.send(JSON.stringify(data));
     }
+
+    setCallback(type: string, cb: Function) {
+        this.messageCallbacks[type] = cb;
+    }
+
+    setTempCallback(type: string, cb: Function) {
+        this.tempCallbacks[type] = cb;
+    }
+
     async waitFor(responseType: string) {
         const promise = new Promise(function(resolve: Function, reject: Function) {
-            this.socket.addEventListener("message", function(event: any) {
-                const data = JSON.parse(event.data);
-                if (data.type == responseType) {
-                    resolve(data);
-                }
+            this.setTempCallback(responseType, function(data: any) {
+                resolve(data)
             });
         }.bind(this));
         
