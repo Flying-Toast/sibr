@@ -28,6 +28,6 @@ Represented in the JSON object as a string where each character is a value from 
 A 2D vector representing the direction in which the player is aiming.
 Equivalent to `[cos(theta), sin(theta)]` where theta is the angle.
 
-## `float32 deltaTime`
+## `uint deltaTime`
 
-The time since last update
+The time in milliseconds (rounded to nearest integer) since the client sent the last update.
