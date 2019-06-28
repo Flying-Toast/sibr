@@ -91,3 +91,15 @@ A component that gives a nickname to it's parent entity (e.g. for players).
 ```
 
 ---
+
+### `ItemDrop`
+
+A dropped item, for example, a gun on the ground that can be picked up.
+
+```JavaScript
+"ItemDrop": {
+	"item": <Item (data class, see gameserver/component.d)>
+}
+```
+
+---
