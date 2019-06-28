@@ -1,7 +1,7 @@
 module sibr.gameserver.component;
 
-import vibe.vibe : ignore;
 import std.meta;
+import painlessjson;
 
 alias ComponentTypes = AliasSeq!(NicknameC, NetworkC);///All component types
 
@@ -10,10 +10,9 @@ private template isClientComponent(T) {
 	import std.traits;
 	enum isClientComponent = hasUDA!(T, clientVisible);
 	static if (isClientComponent) {
-		import vibe.vibe : IgnoreAttribute;
 		static assert(is(typeof(T.lastJSONHash) == size_t), "clientComponent does not have a `size_t lastJSONHash` property");
 		static assert(!hasStaticMember!(T, "lastJSONHash"), "clientComponent's `lastJSONHash` property shouldn't be static");
-		static assert(hasUDA!(T.lastJSONHash, IgnoreAttribute), "clientComponent's `lastJSONHash` property doesn't have @ignore attribute");
+		static assert(hasUDA!(T.lastJSONHash, SerializeIgnore), "clientComponent's `lastJSONHash` property doesn't have @SerializeIgnore attribute");
 	}
 }
 private enum clientVisible;///Used as an attribute to mark a component as being visible to clients.
@@ -35,7 +34,7 @@ class NetworkC {
 
 @clientVisible
 class NicknameC {
-	@ignore size_t lastJSONHash;
+	@SerializeIgnore size_t lastJSONHash;
 
 	//component-specific properties:
 	immutable string nickname;
