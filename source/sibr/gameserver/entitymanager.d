@@ -75,6 +75,7 @@ entityID_t createPlayer(EntityManager em, string nickname, ushort socketID) {
 
 	em.addComponent(id, new NicknameC(nickname));
 	em.addComponent(id, new NetworkC(socketID));
+	em.addComponent(id, new LocationC(0, 0));
 
 	return id;
 }
