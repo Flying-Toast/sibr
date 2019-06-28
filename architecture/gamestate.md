@@ -80,3 +80,33 @@ A component that gives a nickname to it's parent entity (e.g. for players).
 ```
 
 ---
+
+### `Item`
+
+A game item (e.g. gun, grenade, armor)
+```JavaScript
+"Item": {
+	"type": <string>,
+	"name": <string>
+}
+```
+
+`type`: What kind of item<br>
+`name`: the name of the item<br>
+
+---
+
+### `Usable`
+
+A game item that has limited uses (e.g. ammo)
+```JavaScript
+"Usable": {
+	"item": <Item component>,
+	"amount": <int>
+}
+```
+
+`item`: the base item<br>
+`amount`: how many uses the item has
+
+---
