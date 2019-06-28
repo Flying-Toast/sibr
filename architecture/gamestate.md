@@ -80,18 +80,3 @@ A component that gives a nickname to it's parent entity (e.g. for players).
 ```
 
 ---
-
-### `Item`
-
-A dropped game item (e.g. gun, grenade, armor)
-```JavaScript
-"DroppedItem": {
-	"type": <string>,
-	"name": <string>
-}
-```
-
-`type`: What kind of item<br>
-`name`: the name of the item<br>
-
----
