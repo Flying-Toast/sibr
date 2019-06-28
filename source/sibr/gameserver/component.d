@@ -60,6 +60,10 @@ class LocationC {
 //Data class - NOT a component
 class Item {
 	string name;
+
+	this(string name) {
+		this.name = name;
+	}
 }
 
 @clientVisible
