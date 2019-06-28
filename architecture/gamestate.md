@@ -70,7 +70,7 @@ This would mean that entity 17 hasn't changed since the last message, but entity
 
 ### `Nickname`
 
-An entity with a nickname (e.g. for players).
+A component that gives a nickname to it's parent entity (e.g. for players).
 
 <!-- The code here is actually JSON, but javascript highlighting displays better -->
 ```JavaScript
