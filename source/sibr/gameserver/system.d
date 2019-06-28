@@ -93,7 +93,7 @@ class NetworkSystem : System {
 	override void tick(long dt) {
 		immutable currentTime = millis();
 		//whether an update message gets sent this tick:
-		bool shouldSendUpdate = (currentTime - lastUpdate) >= cfg.messageSendInterval;
+		bool shouldSendUpdate = (currentTime - lastUpdate) >= cfg.clientUpdateInterval;
 		string updateMessage;
 		if (shouldSendUpdate) {
 			updateMessage = getUpdateMessage();
