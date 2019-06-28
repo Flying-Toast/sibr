@@ -44,14 +44,10 @@ Once the server receives the configuration message, it replies with a 'welcome m
 {
 	"type": "welcome",
 	"data": {
-		"state": {
-			/*API to be determined...*/
-		}
+		/*API to be determined...*/
 	}
 }
 ```
-data properties:<br>
-`state`: The game state.
 
 ---
 
