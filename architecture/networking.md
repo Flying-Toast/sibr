@@ -14,7 +14,8 @@ Websockets connect to the url `ws://<hostname>/ws`.
 ---
 
 All messages sent by the server follow this format:
-```JSON
+<!-- The code here is actually JSON, but javascript highlighting is used to allow comments -->
+```JavaScript
 {
 	"type": <string>,
 	"data": {
@@ -40,26 +41,25 @@ properties:<br>
 ---
 
 Once the server receives the configuration message, it replies with a 'welcome message'. The purpose of the welcome message is to inform the client of the current game state and prepare the client for the incoming "update" messages.
-```JSON
+<!-- The code here is actually JSON, but javascript highlighting is used to allow comments -->
+```JavaScript
 {
 	"type": "welcome",
 	"data": {
-		/*API to be determined...*/
+		//<entity state data> (see architecture/gamestate.md)
 	}
 }
 ```
 
 ---
 
-\*This isn't implemented yet:\*<br>
 After this, the server then begins the normal update loop. During this loop, the server sends game updates every few milliseconds. The game updates are in this format:
-```JSON
+<!-- The code here is actually JSON, but javascript highlighting is used to allow comments -->
+```JavaScript
 {
 	"type": "update",
 	"data": {
-		/*...to be determined...*/
+		//<entity state data> (see architecture/gamestate.md)
 	}
 }
 ```
-data properties:<br>
-to be determined...
