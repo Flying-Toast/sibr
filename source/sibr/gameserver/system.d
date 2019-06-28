@@ -54,7 +54,7 @@ class NetworkSystem : System {
 
 		static foreach (T; ClientComponentTypes) {
 			foreach (id, c; entityManager.getComponents!T) if (c !is null) {
-				static componentName = fullyQualifiedName!(T).split(".")[$-1][0 .. $-1];
+				enum componentName = fullyQualifiedName!(T).split(".")[$-1][0 .. $-1];
 				JSONValue componentJSON = c.toJSON();
 
 				static if (type == stateType.full) {
