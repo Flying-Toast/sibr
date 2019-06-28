@@ -3,7 +3,7 @@ module sibr.gameserver.component;
 import std.meta;
 import painlessjson;
 
-alias ComponentTypes = AliasSeq!(NicknameC, NetworkC, ItemC, UsableC);///All component types
+alias ComponentTypes = AliasSeq!(NicknameC, NetworkC, DroppedItemC);///All component types
 
 alias ClientComponentTypes = Filter!(isClientComponent, ComponentTypes);///Components that clients see
 private template isClientComponent(T) {
@@ -45,7 +45,7 @@ class NicknameC {
 }
 
 @clientVisible
-class ItemC {
+class DroppedItemC {
 	@SerializeIgnore size_t lastJSONHash;
 
 	immutable string type;///What kind of item this is
@@ -54,19 +54,5 @@ class ItemC {
 	this(string type, string name) {
 		this.type = type;
 		this.name = name;
-	}
-}
-
-///A consumable thing
-@clientVisible
-class UsableC {
-	@SerializeIgnore size_t lastJSONHash;
-
-	ItemC item;
-	ushort amount;///how many times it can be consumed
-
-	this(ItemC item, ushort amount) {
-		this.item = item;
-		this.amount = amount;
 	}
 }
