@@ -80,3 +80,14 @@ A component that gives a nickname to it's parent entity (e.g. for players).
 ```
 
 ---
+
+### `Location`
+
+```JavaScript
+"Location": {
+	"x": <float>,
+	"y": <float>
+}
+```
+
+---
