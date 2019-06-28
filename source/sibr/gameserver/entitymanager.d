@@ -79,3 +79,12 @@ entityID_t createPlayer(EntityManager em, string nickname, ushort socketID) {
 
 	return id;
 }
+
+entityID_t createDroppedItem(EntityManager em, Item item, LocationC location) {
+	immutable id = em.createEntity();
+
+	em.addComponent(id, location);
+	em.addComponent(id, new ItemDropC(item));
+
+	return id;
+}
