@@ -30,7 +30,8 @@ All messages sent by the server follow this format:
 When the client opens a websocket, the first message that it sends to the server is a 'configuration message'. The configuration message contains information that the server uses to create a player (for example: the user's nickname, or a 'game code' if playing in party mode)
 
 The configuration message is in this format:
-```JSON
+<!-- The code here is actually JSON, but javascript highlighting displays better -->
+```JavaScript
 {
 	"nickname": <string>
 }
@@ -46,7 +47,7 @@ Once the server receives the configuration message, it replies with a 'welcome m
 {
 	"type": "welcome",
 	"data": {
-		//<entity state data> (see architecture/gamestate.md)
+		<entity state data> //(see architecture/gamestate.md)
 	}
 }
 ```
@@ -59,7 +60,7 @@ After this, the server then begins the normal update loop. During this loop, the
 {
 	"type": "update",
 	"data": {
-		//<entity state data> (see architecture/gamestate.md)
+		<entity state data> //(see architecture/gamestate.md)
 	}
 }
 ```

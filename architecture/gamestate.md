@@ -72,7 +72,8 @@ This would mean that entity 17 hasn't changed since the last message, but entity
 
 An entity with a nickname (e.g. for players).
 
-```JSON
+<!-- The code here is actually JSON, but javascript highlighting displays better -->
+```JavaScript
 "Nickname": {
 	"nickname": <string>
 }
