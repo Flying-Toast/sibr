@@ -1,3 +1,7 @@
+/*
+    A module handling socket communications between client and server
+*/
+
 interface Callback {        // Defines a type for Typescript that signifies roughly Map<string, Function>
     [K: string]: Function;
 }

@@ -1,11 +1,43 @@
-export interface Component {
+import { Vector } from "./util";
+
+export class Component {
+    // Name of the component
+    name: string;
+    /*
+        Update state using the values sent by the server
+        If the structure of the component state differs
+        from that of the data being sent, this method
+        must be overriden. See Location.setState for an example
+    */
+    setState(data: any) {
+        // naive method of setting fields using a key/value object
+        for (const field in data) {
+            (<any> this)[field] = data[field]; // very unidomatic but shhhh
+        }
+    }
 }
-export class Location implements Component {
-    x: number;
-    y: number;
+export class Location extends Component {
+    pos: Vector;
+    name = "Location";
+
+    setState(data: any) {
+        this.pos = new Vector(data.x, data.y);
+    }
 }
-export class Velocity implements Component {
+export class Velocity extends Component {
     vx: number;
     vy: number;
+    name = "Velocity";
 }
 
+const componentTypes = [Location, Velocity];
+
+export function componentTypeFromName(name: string) {
+    // will optimize later
+    for (const type of componentTypes) {
+        if (type.prototype.name == name) { // i have no idea if this is correct, i'm on the highway and can't look it up
+            return type;
+        }
+    }
+    return null;
+}
