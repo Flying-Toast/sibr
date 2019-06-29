@@ -20,7 +20,10 @@ export class Network {
 
     constructor (url: string) {
         this.url = url;
-        this.socket = new WebSocket(url);
+    }
+
+    connect() {
+        this.socket = new WebSocket(this.url);
         this.socket.addEventListener('open', function (event: any) {
             this.socketReady = true;
             this.onReady();

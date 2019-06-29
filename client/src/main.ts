@@ -18,6 +18,9 @@ var network = new Network(wsURL);
 
 network.onReady = ()=>{
     $("#networkstatus").text(""); // Remove "Connecting..." message on the homescreen
+    network.startGame(<string> $("#nickname").val());
+    game = new Game(network);
+    $(".mainmenu").hide();
 };
 
 var game: Game;
@@ -30,8 +33,7 @@ resize();
 
 // module functions made externally accessable via the window instance 
 (<any> window).startgame = ()=>{
-    network.startGame(<string> $("#nickname").val());
-    game = new Game(network);
-    $(".mainmenu").hide();
+    $("#networkstatus").text("Connecting...");
+    network.connect();
 }
 
