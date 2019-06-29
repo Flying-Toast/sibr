@@ -8,6 +8,7 @@ export class Network {
     socketReady = false;    // Whether the socket has connected or not
 
     onReady: Function;      // Callback for when the socket connects
+    onUpdate: Function;     // Callback for a game update
 
     // Callbacks on a WebSocket message for a given JSON .type value
     tempCallbacks: Callback = {};     // callbacks that are meant to be called only once
@@ -20,7 +21,7 @@ export class Network {
             this.socketReady = true;
             this.onReady();
         }.bind(this));
-        this.socket.onmessage = this.handleSocketMessage;
+        this.socket.onmessage = this.handleSocketMessage.bind(this);
     }
     
     handleSocketMessage(event: MessageEvent) {

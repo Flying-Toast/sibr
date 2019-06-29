@@ -1,5 +1,6 @@
 import {Network} from "./networking";
 import { interaction } from "pixi.js";
+import * as Components from "./components";
 
 enum AmmoType {
     light,
@@ -26,25 +27,29 @@ export class Weapon implements Damaging {
     ammoType: AmmoType;
 }
 
-export class Player {
-    x: number;
-    y: number;
-}
-
-// The player being controlled by the client.
-// Has additional information that is irrelevant/private in other onscreen players
-// such as inventory, health, etc.
-
-export class MainPlayer extends Player {
-    
+export class Entity {
+    data: any;
+    components: Components.Component[];
 }
 
 export class Game {
     network: Network;
-    players: Player[];
+    entities: Entity[];
+    knownEntities: Set<string>;
 
     constructor (network: Network) {
         this.network = network;
+        this.network.onUpdate = this.pullGameState.bind(this);
+    }
+
+    pullGameState (data: any) {
+        for (var id in data) {
+            if (this.knownEntities.has(id)) {
+
+            } else {
+
+            }
+        }
     }
 }
 
