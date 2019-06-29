@@ -4,6 +4,7 @@ import sibr.gameserver.configmessage;
 import sibr.gameserver.entitymanager;
 import sibr.gameserver.system;
 import sibr.gameserver.utils;
+import sibr.gameserver.component;
 
 class Game {
 	private {
@@ -28,7 +29,7 @@ class Game {
 
 	///Add a new client to the game
 	void clientJoin(ConfigMessage config) {
-		entityManager.createPlayer(config.nickname, config.socketID);
+		entityManager.createPlayer(config.nickname, config.socketID, new LocationC(0, 0));
 	}
 
 	this() {
