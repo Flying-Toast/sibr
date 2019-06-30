@@ -70,6 +70,7 @@ void runGame() {
 	import std.concurrency : receiveTimeout;
 	import core.time : Duration;
 	import core.thread;
+	import msgpack;
 
 	//runGame() (the master game loop) shouln't exit. If it does exit, it means there was a crash. In that case, kill the other threads too, so the application can be restarted.
 	scope (exit) {
@@ -87,8 +88,7 @@ void runGame() {
 			ConfigMessage playerConfig;
 			//catch any invalid messages
 			try {
-				//TODO: use msgpacked configmessage instead of json
-				playerConfig = new ConfigMessage(`{"nickname":"PLACEHOLDER"}`/*inQueue.nextMessage(id)*/, id);
+				playerConfig = new ConfigMessage(inQueue.nextMessage(id).unpack!(string[string])["nickname"], id);
 			} catch (Throwable t) {
 				import std.stdio;
 				stderr.writeln("An invalid config message was ignored.");
