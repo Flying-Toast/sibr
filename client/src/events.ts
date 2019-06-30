@@ -30,6 +30,8 @@ export class InputManager {
     eventTarget: EventTarget;
     keysPressed = new InputMap();
     mouseButtons = new InputMap();
+    readonly inputSendInterval: number = 15;
+    lastInputSent: number = 0;
 
     mouseButtonNames: {[key:number]:string} = {
         0: "mouseLeft",
@@ -71,10 +73,10 @@ export class InputManager {
         state.held = false;
         state.up = true;
     }
-    
+
     _poll (inputMap: InputMap): InputMap { // Read and update input states
         const clone = inputMap.clone();
-    
+
         for (const key in inputMap.inputStates) {
             const state = inputMap.get(key);
             // Make sure the "down" state is only active for one poll call

@@ -16,8 +16,6 @@ export class Game {
     entities: {[key:string]:Entity} = {};
     knownEntities = new Set<string>();
 
-    deltaTime: number;
-
     constructor (network: Network, inputManager: InputManager, pixiApp: Application) {
         this.network = network;
         this.inputManager = inputManager;
@@ -27,8 +25,6 @@ export class Game {
     }
 
     gameLoop (deltaTime: number) {
-        this.deltaTime = deltaTime;
-
         const keyEvents = this.inputManager.pollKeys();
         const mouseEvents = this.inputManager.pollMouse();
 
@@ -52,15 +48,20 @@ export class Game {
             jumping = true;
         }
 
-		this.network.send([
-			movement.x,
-			movement.y,
-			jumping,
-			0, // firing
-			0, // looking x
-			0, // looking y
-			deltaTime
-		]);
+		const currentTime = performance.now();
+		const inputTimeDiff = currentTime - this.inputManager.lastInputSent;
+		if (inputTimeDiff >= this.inputManager.inputSendInterval) {
+			this.network.send([
+				movement.x,
+				movement.y,
+				jumping,
+				0, // firing
+				0, // looking x
+				0, // looking y
+				Math.round(inputTimeDiff)
+			]);
+			this.inputManager.lastInputSent = currentTime;
+		}
     }
 
     addEntity(entity: Entity) {
