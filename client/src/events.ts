@@ -93,7 +93,7 @@ export class InputManager {
         return this._poll(this.keysPressed);
     }
 
-    pollMice(): InputMap {
+    pollMouse(): InputMap {
         return this._poll(this.mouseButtons);
     }
 }
