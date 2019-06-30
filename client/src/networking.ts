@@ -1,6 +1,7 @@
 /*
     A module handling socket communications between client and server
 */
+var msgpack = require("msgpack-lite");
 
 interface Callback {        // Defines a type for Typescript that signifies roughly Map<string, Function>
     [K: string]: Function;
@@ -32,7 +33,9 @@ export class Network {
     }
     
     handleSocketMessage(event: MessageEvent) {
-        const data = JSON.parse(event.data);
+        const msg = event.data;
+        const array = new TextEncoder().encode(msg);
+        const data = msgpack.decode(array);
         const type = data.type;
         
         if (this.tempCallbacks[type]) {
@@ -46,7 +49,11 @@ export class Network {
     }
 
     send(data: any) {
-        this.socket.send(JSON.stringify(data));
+        const buffer: ArrayBuffer = msgpack.encode(data);
+        const array = new Uint8Array(buffer);
+        const msg: string = new TextDecoder("utf-8").decode(new Uint8Array(buffer));
+
+        this.socket.send(msg);
     }
 
     setCallback(type: string, cb: Function) {

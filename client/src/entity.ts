@@ -1,11 +1,14 @@
 import * as Components from "./components";
 import {Component} from "./components";
 import { logError } from "./logging";
+import { Game } from "./game";
 
 export class Entity {
     id: string;
     data: any;
     components: {[key:string]:Component} = {};
+    game: Game;
+
     constructor (id: string) {
         this.id = id;
     }
@@ -24,10 +27,17 @@ export class Entity {
             this.components[componentName].setState(data[componentName]);
         }
     }
+
+    onUpdate() {
+        for (const componentName in this.components) {
+            this.components[componentName].onUpdate();
+        }
+    }
 }
 
-export function buildEntity(id: string, data: any): Entity {
+export function buildEntity(game: Game, id: string, data: any): Entity {
     const entity = new Entity(id);
+    entity.game = game;
     for (const componentName in data) {
         const compType = Components.componentTypeFromName(componentName);
         if (compType == null) {
@@ -35,7 +45,9 @@ export function buildEntity(id: string, data: any): Entity {
         }
         const comp = new compType(); // Instantiate new component
         comp.setState(data[componentName]); // Sync proper fields with the server
+        comp.entity = this;
         entity.addComponent(comp);
+        
     }
     return entity;
 }
