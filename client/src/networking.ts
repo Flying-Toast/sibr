@@ -32,9 +32,10 @@ export class Network {
         this.socket.onmessage = this.handleSocketMessage.bind(this);
     }
     
-    handleSocketMessage(event: MessageEvent) {
+    async handleSocketMessage(event: MessageEvent) {
         const msg = event.data;
-        const array = new TextEncoder().encode(msg);
+        const array = await new Response(msg).arrayBuffer();
+        console.log(array);
         const data = msgpack.decode(array);
         const type = data.type;
         
@@ -53,7 +54,7 @@ export class Network {
         const array = new Uint8Array(buffer);
         const msg: string = new TextDecoder("utf-8").decode(new Uint8Array(buffer));
 
-        this.socket.send(msg);
+        this.socket.send(array);
     }
 
     setCallback(type: string, cb: Function) {
@@ -75,7 +76,9 @@ export class Network {
     }
     async startGame(nickname: string) {
         this.send({nickname: nickname});
+        console.log("waiting...")
         const response = await this.waitFor("welcome");
+        console.log("hmmm");
         console.log(response);
     }
 }
