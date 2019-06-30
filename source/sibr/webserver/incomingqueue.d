@@ -1,6 +1,6 @@
 module sibr.webserver.incomingqueue;
 
-private alias messageType_t = string;
+private alias messageType_t = ubyte[];
 
 ///A queue of incoming messages from clients.
 shared class IncomingQueue {
@@ -13,14 +13,14 @@ shared class IncomingQueue {
 
 	///Adds a message to the queue. `id` is the id of the socket that sent the message.
 	void queueMessage(ushort id, messageType_t message) {
-		messages[id] ~= message;
+		messages[id] ~= cast(shared) message;
 	}
 
 	///Pops the next message off of {socket}'s queue. {socket} is the socket with the id `id`.
 	messageType_t nextMessage(ushort id) {
-		immutable message = messages[id][0];
+		auto message = messages[id][0];
 		messages[id] = messages[id][1 .. $];
-		return message;
+		return cast(messageType_t) message;
 	}
 
 	///Removes a socket's queue.
