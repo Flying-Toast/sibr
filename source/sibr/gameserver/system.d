@@ -24,6 +24,24 @@ abstract class System {
 	abstract void tick(long dt);
 }
 
+class Input {
+	byte movementX;//can be 1 or -1
+	byte movementY;//can be 1 or -1
+	bool jumping;
+	bool firing;
+	ushort lookingX;
+	ushort lookingY;
+	ushort dt;
+
+	void verify() {
+		import std.algorithm : min, max;
+		movementX = min(cast(byte) 1, movementX);
+		movementX = max(cast(byte) -1, movementX);
+		movementY = min(cast(byte) 1, movementY);
+		movementY = max(cast(byte) -1, movementY);
+		dt = min(cfg.maxInputDT, dt);
+	}
+}
 
 class NetworkSystem : System {
 	import std.json;
@@ -111,11 +129,22 @@ class NetworkSystem : System {
 		}
 
 		foreach (c; entityManager.getComponents!NetworkC) if (c !is null) {
+			import sibr.webserver.queues;
 			if (c.state == c.ConnectionState.justConnected) {
 				sendWelcomeMessage(c.socketID);
 				c.state = c.ConnectionState.welcomed;
+			} else if (c.state == c.ConnectionState.welcomed && inQueue.messageAvailable(c.socketID)) {//process input
+				Input input;
+				try {
+					import std.stdio;
+					input = unpack!Input(inQueue.nextMessage(c.socketID));
+					input.verify();
+					//TODO: process the input
+				} catch (Throwable t) {
+					import std.stdio;
+					stderr.writeln("A malformed input was ignored");
+				}
 			} else if (c.state == c.ConnectionState.welcomed && shouldSendUpdate) {
-				import sibr.webserver.queues;
 				outQueue.queueMessage(c.socketID, updateMessage);
 			}
 		}

@@ -55,7 +55,7 @@ export class Game {
 				movement.x,
 				movement.y,
 				jumping,
-				0, // firing
+				false, // firing
 				0, // looking x
 				0, // looking y
 				Math.round(inputTimeDiff)

@@ -13,3 +13,6 @@ enum clientUpdateInterval = 100;
 
 ///Time between master loop ticks
 enum masterLoopInterval = 5;
+
+///maximum dt to trust from clients
+enum ubyte maxInputDT = 40;
