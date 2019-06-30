@@ -2,6 +2,7 @@ module sibr.gameserver.inputsystem;
 
 import sibr.gameserver.system;
 import sibr.gameserver.entitymanager;
+import sibr.gameserver.component;
 import cfg = sibr.config;
 
 class Input {

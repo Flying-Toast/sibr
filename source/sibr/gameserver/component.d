@@ -3,7 +3,7 @@ module sibr.gameserver.component;
 import std.meta;
 import painlessjson;
 
-alias ComponentTypes = AliasSeq!(NicknameC, NetworkC, LocationC, ItemDropC);///All component types
+alias ComponentTypes = AliasSeq!(NicknameC, NetworkC, LocationC, ItemDropC, InputC);///All component types
 
 alias ClientComponentTypes = Filter!(isClientComponent, ComponentTypes);///Components that clients see
 private template isClientComponent(T) {
@@ -30,6 +30,11 @@ class NetworkC {
 		this.socketID = socketID;
 		state = ConnectionState.justConnected;
 	}
+}
+
+class InputC {
+	import sibr.gameserver.inputsystem;
+	Input[] inputs;
 }
 
 @clientVisible

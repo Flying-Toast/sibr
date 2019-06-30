@@ -92,7 +92,7 @@ class NetworkSystem : System {
 			shouldSendUpdate = shouldSendUpdate && (updateMessage !is null);
 		}
 
-		foreach (c; entityManager.getComponents!NetworkC) if (c !is null) {
+		foreach (id, c; entityManager.getComponents!NetworkC) if (c !is null) {
 			import sibr.webserver.queues;
 			if (c.state == c.ConnectionState.justConnected) {
 				sendWelcomeMessage(c.socketID);
@@ -103,7 +103,7 @@ class NetworkSystem : System {
 					import std.stdio;
 					input = unpack!Input(inQueue.nextMessage(c.socketID));
 					input.verify();
-					//TODO: process the input
+					entityManager.getComponents!(InputC)[id].inputs ~= input;
 				} catch (Throwable t) {
 					import std.stdio;
 					stderr.writeln("A malformed input was ignored");
