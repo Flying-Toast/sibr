@@ -28,6 +28,7 @@ abstract class System {
 class NetworkSystem : System {
 	import std.json;
 	import painlessjson;
+	import msgpack;
 
 	private {
 		long lastUpdate;///Timestamp that the last update message was sent
@@ -40,12 +41,12 @@ class NetworkSystem : System {
 	}
 
 	/**
-		Gets the stringified-JSON state of clientVisible components.
+		Gets the JSON state of clientVisible components.
 
 		Params:
 			type = whether to get the full state (for welcome message), or the changed states (for normal update message).
 	*/
-	private string getState(stateType type)() {
+	private JSONValue getState(stateType type)() {
 		import std.conv : to;
 		import std.traits : fullyQualifiedName;
 		import std.string : split;
@@ -69,32 +70,41 @@ class NetworkSystem : System {
 			}
 		}
 
-		return JSONValue(state).toString();
+		return JSONValue(state);
 	}
 
 	///Sends a 'welcome message' (see architecture/networking.md) to the socket `socketID`.
 	private void sendWelcomeMessage(ushort socketID) {
 		import sibr.webserver.queues;
 
-		string message = `{"type":"welcome","data":`~getState!(stateType.full)~`}`;
+		JSONValue messageJSON = JSONValue();
+		messageJSON["type"] = "welcome";
+		messageJSON["data"] = getState!(stateType.full);
+
+		ubyte[] message = fromJSONValue(messageJSON).pack();
 
 		outQueue.queueMessage(socketID, message);
 	}
 
-	///Gets a JSON string for sending to clients in update messages
-	private string getUpdateMessage() {
+	///Gets a msgpacked update for sending to clients in update messages
+	private ubyte[] getUpdateMessage() {
 		immutable state = getState!(stateType.diff);
-		if (state == "{}") {
+		if (state.toString() == "{}") {
 			return null;
 		}
-		return `{"type":"update","data":`~state~`}`;
+
+		JSONValue messageJSON = JSONValue();
+		messageJSON["type"] = "update";
+		messageJSON["data"] = state;
+
+		return fromJSONValue(messageJSON).pack();
 	}
 
 	override void tick(long dt) {
 		immutable currentTime = millis();
 		//whether an update message gets sent this tick:
 		bool shouldSendUpdate = (currentTime - lastUpdate) >= cfg.clientUpdateInterval;
-		string updateMessage;
+		ubyte[] updateMessage;
 		if (shouldSendUpdate) {
 			updateMessage = getUpdateMessage();
 			shouldSendUpdate = shouldSendUpdate && (updateMessage !is null);

@@ -87,7 +87,8 @@ void runGame() {
 			ConfigMessage playerConfig;
 			//catch any invalid messages
 			try {
-				playerConfig = new ConfigMessage(inQueue.nextMessage(id), id);
+				//TODO: use msgpacked configmessage instead of json
+				playerConfig = new ConfigMessage(`{"nickname":"PLACEHOLDER"}`/*inQueue.nextMessage(id)*/, id);
 			} catch (Throwable t) {
 				import std.stdio;
 				stderr.writeln("An invalid config message was ignored.");

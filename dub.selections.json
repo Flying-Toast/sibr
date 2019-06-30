@@ -10,6 +10,7 @@
 		"libevent": "2.0.2+2.0.16",
 		"memutils": "0.4.13",
 		"mir-linux-kernel": "1.0.1",
+		"msgpack-d": "~master",
 		"openssl": "1.1.6+1.0.1g",
 		"painlessjson": "1.3.9",
 		"painlesstraits": "0.3.0",
