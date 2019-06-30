@@ -31,12 +31,9 @@ export class Network {
         }.bind(this));
         this.socket.onmessage = this.handleSocketMessage.bind(this);
     }
-    
+
     async handleSocketMessage(event: MessageEvent) {
-        const msg = event.data;
-        const array = await new Response(msg).arrayBuffer();
-        console.log(array);
-        const data = msgpack.decode(array);
+        const data = msgpack.decode(new Uint8Array(await new Response(event.data).arrayBuffer()));
         const type = data.type;
 
         if (this.tempCallbacks[type]) {
@@ -72,9 +69,7 @@ export class Network {
     }
     async startGame(nickname: string) {
         this.send({nickname: nickname});
-        console.log("waiting...")
         const response = await this.waitFor("welcome");
-        console.log("hmmm");
         console.log(response);
     }
 }
