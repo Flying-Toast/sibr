@@ -1,8 +1,12 @@
 import { Vector } from "./util";
+import { Entity } from "./entity";
 
 export class Component {
     // Name of the component
     name: string;
+
+    // A reference to the parent entity
+    entity: Entity;
     /*
         Update state using the values sent by the server
         If the structure of the component state differs
@@ -14,6 +18,11 @@ export class Component {
         for (const field in data) {
             (<any> this)[field] = data[field]; // very unidomatic but shhhh
         }
+    }
+    
+    // Should be overwritten to run each frame
+    onUpdate() {
+
     }
 }
 export class Location extends Component {

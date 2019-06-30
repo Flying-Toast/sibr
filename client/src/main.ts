@@ -17,15 +17,16 @@ window.addEventListener('resize', resize); // Dynamically resize canvas
 const wsURL = `ws${(location.protocol==="https:")?"s":""}://${location.host}/ws`;
 var network = new Network(wsURL);
 
+var inputs = new InputManager(app.view);
+
 network.onReady = ()=>{
     $("#networkstatus").text(""); // Remove "Connecting..." message on the homescreen
     network.startGame(<string> $("#nickname").val());
-    game = new Game(network);
+    game = new Game(network, inputs, app);
     $(".mainmenu").hide();
 };
 
 var game: Game;
-var inputs = new InputManager(app.view);
 
 // Resize canvas to fit the window
 function resize() {
