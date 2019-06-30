@@ -22,7 +22,7 @@ final class WebServer {
 		bool connected = false;
 		//Add received messages to the incoming queue
 		while (socket.waitForData()) {
-			inQueue.queueMessage(socketID, cast(ubyte[]) socket.receiveText());
+			inQueue.queueMessage(socketID, socket.receiveBinary());
 			if (!connected) {
 				connectionQueue.addConnection(socketID);
 				connected = true;
