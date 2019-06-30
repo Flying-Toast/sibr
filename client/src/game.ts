@@ -5,7 +5,7 @@ import { Application } from "pixi.js";
 import { Vector } from "./util";
 
 export class Configuration {
-        
+
 }
 
 export class Game {
@@ -38,7 +38,7 @@ export class Game {
         }
 
         // test
-        
+
         const movement = new Vector(0, 0);
         var jumping = false;
 
@@ -50,23 +50,17 @@ export class Game {
         }
         if (keyEvents.get(" ").down) {
             jumping = true;
-        } 
+        }
 
-        this.network.send({
-            type: "update",
-            data: {
-                events: [
-                    movement.x,
-                    movement.y,
-                    jumping,
-                    0, // firing
-                    0, // looking x
-                    0, // looking y
-                    deltaTime
-                ]
-            }
-        })
-
+		this.network.send([
+			movement.x,
+			movement.y,
+			jumping,
+			0, // firing
+			0, // looking x
+			0, // looking y
+			deltaTime
+		]);
     }
 
     addEntity(entity: Entity) {
