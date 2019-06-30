@@ -5,7 +5,7 @@ import { logError } from "./logging";
 export class Entity {
     id: string;
     data: any;
-    components: Record<string, Component>;
+    components: {[key:string]:Component} = {};
     constructor (id: string) {
         this.id = id;
     }

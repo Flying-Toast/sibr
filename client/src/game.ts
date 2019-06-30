@@ -2,10 +2,15 @@ import { Network } from "./networking";
 import { Entity, buildEntity } from "./entity";
 
 
+
+export class Configuration {
+        
+}
+
 export class Game {
     network: Network;
-    entities: Record<string, Entity>;
-    knownEntities: Set<string>;
+    entities: {[key:string]:Entity} = {};
+    knownEntities = new Set<string>();
 
     constructor (network: Network) {
         this.network = network;

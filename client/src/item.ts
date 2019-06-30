@@ -12,7 +12,7 @@ export class Item {
 }
 
 export class ConsumableItem extends Item {
-    amount: number;
+    amount = 0;
 }
 
 export interface Damaging {

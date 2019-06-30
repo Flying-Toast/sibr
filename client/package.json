@@ -24,6 +24,7 @@
   "dependencies": {
     "@types/pixi.js": "^4.8.8",
     "jquery": "^3.4.1",
+    "msgpack-lite": "^0.1.26",
     "pixi.js": "^5.0.4"
   }
 }

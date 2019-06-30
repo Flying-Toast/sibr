@@ -5,6 +5,7 @@ import $ from "jquery";
 
 import {Network} from "./networking";
 import {Game} from "./game";
+import { InputManager } from './events';
 
 const app = new PIXI.Application({
     width: 512, height: 256,
@@ -24,6 +25,7 @@ network.onReady = ()=>{
 };
 
 var game: Game;
+var inputs = new InputManager(app.view);
 
 // Resize canvas to fit the window
 function resize() {
