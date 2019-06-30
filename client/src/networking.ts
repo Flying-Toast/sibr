@@ -38,7 +38,7 @@ export class Network {
         console.log(array);
         const data = msgpack.decode(array);
         const type = data.type;
-        
+
         if (this.tempCallbacks[type]) {
             this.tempCallbacks[type](data);
             delete this.tempCallbacks[type];
@@ -50,11 +50,7 @@ export class Network {
     }
 
     send(data: any) {
-        const buffer: ArrayBuffer = msgpack.encode(data);
-        const array = new Uint8Array(buffer);
-        const msg: string = new TextDecoder("utf-8").decode(new Uint8Array(buffer));
-
-        this.socket.send(array);
+        this.socket.send(msgpack.encode(data));
     }
 
     setCallback(type: string, cb: Function) {
@@ -71,7 +67,7 @@ export class Network {
                 resolve(data)
             });
         }.bind(this));
-        
+
         return promise;
     }
     async startGame(nickname: string) {
