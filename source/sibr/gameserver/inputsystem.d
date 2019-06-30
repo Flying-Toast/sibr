@@ -26,7 +26,13 @@ class Input {
 
 class InputSystem : System {
 	override void tick(long dt) {
+		foreach (id, c; entityManager.getComponents!InputC) if (c !is null) {
+			foreach (input; c.inputs) {
+				//process the input here
+			}
 
+			c.inputs = [];//remove all the inputs after they have been processed
+		}
 	}
 
 	this(EntityManager entityManager) {
