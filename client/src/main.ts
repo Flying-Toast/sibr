@@ -17,7 +17,7 @@ window.addEventListener('resize', resize); // Dynamically resize canvas
 const wsURL = `ws${(location.protocol==="https:")?"s":""}://${location.host}/ws`;
 var network = new Network(wsURL);
 
-var inputs = new InputManager(app.view);
+var inputs = new InputManager(window);
 
 network.onReady = ()=>{
     $("#networkstatus").text(""); // Remove "Connecting..." message on the homescreen

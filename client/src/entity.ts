@@ -1,5 +1,5 @@
 import * as Components from "./components";
-import {Component} from "./components";
+import { Component } from "./components";
 import { logError } from "./logging";
 import { Game } from "./game";
 
@@ -8,6 +8,10 @@ export class Entity {
     data: any;
     components: {[key:string]:Component} = {};
     game: Game;
+
+    get location(): Components.Location {
+        return this.getComponent("location") as Components.Location;
+    }
 
     constructor (id: string) {
         this.id = id;

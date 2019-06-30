@@ -7,10 +7,10 @@ class InputState {
 class InputMap {
     inputStates: {[key:string]:InputState} = {}
     get(inputName: string): InputState {
-        if (this.inputStates[inputName] != undefined) {
-            return this.inputStates[inputName];
+        if (this.inputStates[inputName] == undefined) {
+            this.inputStates[inputName] = new InputState();
         }
-        return new InputState();
+        return this.inputStates[inputName];
     }
     clone(): InputMap {
         const clone = new InputMap();
@@ -27,7 +27,7 @@ class InputMap {
 }
 
 export class InputManager {
-    targetElement: HTMLElement;
+    eventTarget: EventTarget;
     keysPressed = new InputMap();
     mouseButtons = new InputMap();
 
@@ -38,12 +38,12 @@ export class InputManager {
     }
 
 
-    constructor (attachTo: HTMLElement) {
-        this.targetElement = attachTo;
-        this.targetElement.addEventListener("keydown", this.onKeyDown.bind(this));
-        this.targetElement.addEventListener("keyup", this.onKeyUp.bind(this));
-        this.targetElement.addEventListener("mousedown", this.onMouseDown.bind(this));
-        this.targetElement.addEventListener("mouseup", this.onMouseUp.bind(this));
+    constructor (attachTo: EventTarget) {
+        this.eventTarget = attachTo;
+        this.eventTarget.addEventListener("keydown", this.onKeyDown.bind(this));
+        this.eventTarget.addEventListener("keyup", this.onKeyUp.bind(this));
+        this.eventTarget.addEventListener("mousedown", this.onMouseDown.bind(this));
+        this.eventTarget.addEventListener("mouseup", this.onMouseUp.bind(this));
     }
 
     onKeyDown(event: KeyboardEvent) {
