@@ -1,5 +1,6 @@
-import { Vector } from "./util";
+import { Vector, Color } from "./util";
 import { Entity } from "./entity";
+import { Sprite } from "pixi.js";
 
 export class Component {
     // Name of the component
@@ -19,7 +20,7 @@ export class Component {
             (<any> this)[field] = data[field]; // very unidomatic but shhhh
         }
     }
-    
+
     // Should be overwritten to run each frame
     onUpdate() {
 
@@ -37,6 +38,23 @@ export class Velocity extends Component {
     vx: number;
     vy: number;
     name = "Velocity";
+}
+
+export class SpriteRenderer extends Component {
+    spriteName: string;
+    tint: Color;
+    anchor: Vector;
+    sprite: Sprite;
+
+    setState(data: any) {
+        this.sprite.tint = Color.fromArray(data.tint).toHex();
+        this.sprite.anchor = data.anchor;
+        this.spriteName = data.sprite;
+    }
+    onUpdate() {
+        this.sprite.x = this.entity.location.pos.x;
+        this.sprite.y = this.entity.location.pos.y;
+    }
 }
 
 const componentTypes = [Location, Velocity];

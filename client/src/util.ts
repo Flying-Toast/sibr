@@ -24,3 +24,34 @@ export class Vector {
         return new Vector(this.x*factor, this.y*factor);
     }
 }
+
+export class Color {
+    r: number;
+    g: number;
+    b: number;
+    a: number;
+    constructor(r:number, g:number, b:number, a:number=1) {
+        this.r = r;
+        this.g = g;
+        this.b = b;
+        this.a = a;
+    }
+    toHex(): number {
+        const r = 255*this.r;
+        const g = 255*this.g;
+        const b = 255*this.b;
+        return parseInt(r.toString(16)+g.toString(16)+b.toString(16))
+    }
+
+    static fromArray(arr:number[]): Color {
+        const r = arr[0];
+        const g = arr[1];
+        const b = arr[2];
+        var a = arr[3];
+        if (a == undefined) {
+            a = 1;
+        }
+        return new Color(r,g,b,a);
+    }
+    
+}
