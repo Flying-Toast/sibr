@@ -50,6 +50,7 @@ export function buildEntity(game: Game, id: string, data: any): Entity {
         const comp = new compType(); // Instantiate new component
         comp.setState(data[componentName]); // Sync proper fields with the server
         comp.entity = this;
+        comp.onStart(); // Call onStart function of the component
         entity.addComponent(comp);
         
     }

@@ -21,6 +21,11 @@ export class Component {
         }
     }
 
+    // Should be overwritten to run at initialization
+    onStart() {
+
+    }
+
     // Should be overwritten to run each frame
     onUpdate() {
 
@@ -42,14 +47,16 @@ export class Velocity extends Component {
 
 export class SpriteRenderer extends Component {
     spriteName: string;
-    tint: Color;
-    anchor: Vector;
-    sprite: Sprite;
+    sprite = new Sprite(null);
 
     setState(data: any) {
         this.sprite.tint = Color.fromArray(data.tint).toHex();
         this.sprite.anchor = data.anchor;
         this.spriteName = data.sprite;
+    }
+
+    onStart () {
+        this.sprite.texture = this.entity.game.spriteTable.getTexture(this.spriteName);
     }
     onUpdate() {
         this.sprite.x = this.entity.location.pos.x;

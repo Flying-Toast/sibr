@@ -12,14 +12,22 @@ export class Game {
     network: Network;
     inputManager: InputManager;
     pixiApp: Application;
+    spriteTable: SpriteTable;
 
     entities: {[key:string]:Entity} = {};
     knownEntities = new Set<string>();
 
-    constructor (network: Network, inputManager: InputManager, pixiApp: Application) {
+    constructor (
+            network: Network,
+            inputManager: InputManager,
+            pixiApp: Application,
+            spriteTable : SpriteTable
+        ) {
         this.network = network;
         this.inputManager = inputManager;
         this.pixiApp = pixiApp;
+        this.spriteTable = spriteTable;
+
         this.network.onUpdate = this.pullGameState.bind(this);
         this.pixiApp.ticker.add(this.gameLoop.bind(this));
     }

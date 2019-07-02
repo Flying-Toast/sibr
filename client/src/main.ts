@@ -3,8 +3,8 @@ import './style.css';
 import * as PIXI from 'pixi.js';
 import $ from "jquery";
 
-import {Network} from "./networking";
-import {Game} from "./game";
+import { Network } from "./networking";
+import { Game } from "./game";
 import { InputManager } from './events';
 
 const app = new PIXI.Application({
@@ -18,11 +18,12 @@ const wsURL = `ws${(location.protocol==="https:")?"s":""}://${location.host}/ws`
 var network = new Network(wsURL);
 
 var inputs = new InputManager(window);
+var spriteTable = new SpriteTable("spritetable.json", "assets");
 
 network.onReady = ()=>{
     $("#networkstatus").text(""); // Remove "Connecting..." message on the homescreen
     network.startGame(<string> $("#nickname").val());
-    game = new Game(network, inputs, app);
+    game = new Game(network, inputs, app, spriteTable);
     $(".mainmenu").hide();
 };
 
