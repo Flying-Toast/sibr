@@ -15,7 +15,7 @@ class Input {
 	ushort dt;
 
 	void verify() {
-		import std.algorithm : clamp;
+		import std.algorithm : clamp, min;
 		movementX = clamp(movementX, cast(byte) -1, cast(byte) 1);
 		movementY = clamp(movementY, cast(byte) -1, cast(byte) 1);
 		dt = min(cfg.maxInputDT, dt);
