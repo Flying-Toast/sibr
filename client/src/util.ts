@@ -56,7 +56,7 @@ export class Color {
     
 }
 
-function loadFile(filePath: string) {
+export function loadFile(filePath: string) {
     var result = null;
     var xmlhttp = new XMLHttpRequest();
     xmlhttp.open("GET", filePath, false);
@@ -65,4 +65,8 @@ function loadFile(filePath: string) {
       result = xmlhttp.responseText;
     }
     return result;
-  }
+}
+
+export function loadJSON(filePath: string) {
+    return JSON.parse(loadFile(filePath));
+}
