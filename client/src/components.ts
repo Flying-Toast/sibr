@@ -48,14 +48,23 @@ export class Velocity extends Component {
     name = "Velocity";
 }
 
+function defaultField(val: any, defaultValue: any) {
+    if (val == undefined || val == null) {
+        return defaultValue;
+    }
+    return val;
+}
 export class SpriteRenderer extends Component {
     spriteName: string;
     sprite: Sprite;
     name = "SpriteRenderer";
 
     setState(data: any) {
-        this.sprite.tint = Color.fromArray(data.tint).toHex();
-        this.sprite.anchor.set(data.anchor[0], data.anchor[1]);
+        this.sprite.tint = Color.fromArray(
+            defaultField(data.tint, [1,1,1]), 255
+        ).toHex();
+        const anchor = defaultField(data.anchor, [0.5, 0.5])
+        this.sprite.anchor.set(anchor[0], anchor[1]);
         this.spriteName = data.spriteName;
     }
 
@@ -75,7 +84,7 @@ const componentTypes = [Location, Velocity, SpriteRenderer];
 export function componentTypeFromName(name: string) {
     // will optimize later
     for (const type of componentTypes) {
-        if (type.name === name) { // i have no idea if this is correct, i'm on the highway and can't look it up
+        if (type.name === name) {
             return type;
         }
     }

@@ -43,10 +43,10 @@ export class Color {
         return parseInt(r.toString(16)+g.toString(16)+b.toString(16), 16)
     }
 
-    static fromArray(arr:number[]): Color {
-        const r = arr[0];
-        const g = arr[1];
-        const b = arr[2];
+    static fromArray(arr:number[], upper=1): Color {
+        const r = arr[0]/upper;
+        const g = arr[1]/upper;
+        const b = arr[2]/upper;
         var a = arr[3];
         if (a == undefined) {
             a = 1;
