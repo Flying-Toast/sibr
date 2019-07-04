@@ -6,7 +6,7 @@ import painlessjson;
 ///All component types
 alias ComponentTypes = AliasSeq!(
 	NicknameC, NetworkC, LocationC, ItemDropC, InputC,
-	SpriteRendererC
+	RenderC, CollisionC
 );
 
 alias ClientComponentTypes = Filter!(isClientComponent, ComponentTypes);///Components that clients see
@@ -87,16 +87,27 @@ class ItemDropC {
 }
 
 @clientVisible
-class SpriteRendererC {
+class RenderC {
 	@SerializeIgnore size_t lastJSONHash;
 
-	string spriteName;
-	float[3] tint;
-	float[2] anchor;
+	string sprite;
+	ubyte[3] tint;
 
-	this(string spriteName, float[3] tint = [1, 1, 1], float[2] anchor = [0.5, 0.5]) {
-		this.spriteName = spriteName;
+	this(string sprite, ubyte[3] tint = [255, 255, 255]) {
+		this.sprite = sprite;
 		this.tint = tint;
-		this.anchor = anchor;
+	}
+}
+
+@clientVisible
+class CollisionC {
+	import sibr.gameserver.geometry;
+
+	@SerializeIgnore size_t lastJSONHash;
+
+	Collidable c;
+
+	this(Collidable c) {
+		this.c = c;
 	}
 }
