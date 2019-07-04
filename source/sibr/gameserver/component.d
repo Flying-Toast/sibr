@@ -3,7 +3,11 @@ module sibr.gameserver.component;
 import std.meta;
 import painlessjson;
 
-alias ComponentTypes = AliasSeq!(NicknameC, NetworkC, LocationC, ItemDropC, InputC, SpriteRendererC);///All component types
+///All component types
+alias ComponentTypes = AliasSeq!(
+	NicknameC, NetworkC, LocationC, ItemDropC, InputC,
+	SpriteRendererC
+);
 
 alias ClientComponentTypes = Filter!(isClientComponent, ComponentTypes);///Components that clients see
 private template isClientComponent(T) {
