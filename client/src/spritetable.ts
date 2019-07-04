@@ -1,4 +1,5 @@
 import { logInfo } from "./logging";
+import * as PIXI from 'pixi.js';
 
 export class SpriteTable {
     table: {[key: string]: string}
