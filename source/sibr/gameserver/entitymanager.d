@@ -73,10 +73,11 @@ class EntityManager {
 entityID_t createPlayer(EntityManager em, string nickname, ushort socketID, LocationC location) {
 	immutable id = em.createEntity();
 
+	em.addComponent(id, new NicknameC(nickname));
 	em.addComponent(id, new NetworkC(socketID));
 	em.addComponent(id, location);
 	em.addComponent(id, new InputC);
-	em.addComponent(id, new SpriteRendererC("crate"));
+	em.addComponent(id, new SpriteRendererC("player"));
 
 	return id;
 }
