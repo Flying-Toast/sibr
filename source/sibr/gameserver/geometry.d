@@ -4,6 +4,16 @@ interface Collidable {
 	bool collidesWith(Collidable);
 }
 
+private bool rectangleCollidesWithCircle(Rectangle r, Circle c) {
+	import std.algorithm : clamp;
+	import std.math : hypot;
+
+	float closestX = clamp(c.x, r.x - (r.width / 2.0), r.x + (r.width / 2.0));
+	float closestY = clamp(c.y, r.y - (r.height / 2.0), r.y + (r.height / 2.0));
+
+	return hypot(c.x - closestX, c.y - closestY) <= c.radius;
+}
+
 class Rectangle : Collidable {
 	float width;
 	float height;
@@ -31,6 +41,8 @@ class Rectangle : Collidable {
 			} else {
 				return false;
 			}
+		} else if (auto thing = cast(Circle) thing_) {//rect-circle
+			return rectangleCollidesWithCircle(this, thing);
 		} else {
 			assert(0, typeof(this).stringof~"-"~typeof(thing_).classinfo.name~" collision not implemented.");
 		}
@@ -53,6 +65,8 @@ class Circle : Collidable {
 		if (auto thing = cast(Circle) thing_) {//circle-circle collision
 			import std.math : hypot;
 			return hypot(x - thing.x, y - thing.y) <= radius + thing.radius;
+		} else if (auto thing = cast(Rectangle) thing_) {//circle-rect
+			return rectangleCollidesWithCircle(thing, this);
 		} else {
 			assert(0, typeof(this).stringof~"-"~typeof(thing_).classinfo.name~" collision not implemented.");
 		}
@@ -83,6 +97,17 @@ unittest {
 	assert(b.collidesWith(a));
 
 	a = new Rectangle(220.7, 186.4, 20.0, 18.22);
+	assert(!a.collidesWith(b));
+	assert(!b.collidesWith(a));
+
+	////////////
+
+	a = new Circle(10.3, 10.3, 8.7);
+	b = new Rectangle(10.5, 10.9, 5, 5);
+	assert(a.collidesWith(b));
+	assert(b.collidesWith(a));
+
+	b = new Rectangle(105.2, 109.9, 5.21, 5.16);
 	assert(!a.collidesWith(b));
 	assert(!b.collidesWith(a));
 }
