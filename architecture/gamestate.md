@@ -109,7 +109,7 @@ Contains information that the client uses for rendering.
 
 ```JavaScript
 "Render": {
-	"sprite": <string>,
+	"spriteName": <string>,
 	"tint": <uint8[3]>
 }
 ```

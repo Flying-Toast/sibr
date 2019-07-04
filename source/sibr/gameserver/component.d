@@ -90,11 +90,11 @@ class ItemDropC {
 class RenderC {
 	@SerializeIgnore size_t lastJSONHash;
 
-	string sprite;
+	string spriteName;
 	ubyte[3] tint;
 
-	this(string sprite, ubyte[3] tint = [255, 255, 255]) {
-		this.sprite = sprite;
+	this(string spriteName, ubyte[3] tint = [255, 255, 255]) {
+		this.spriteName = spriteName;
 		this.tint = tint;
 	}
 }
