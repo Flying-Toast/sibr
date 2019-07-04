@@ -3,7 +3,7 @@ module sibr.gameserver.component;
 import std.meta;
 import painlessjson;
 
-alias ComponentTypes = AliasSeq!(NicknameC, NetworkC, LocationC, ItemDropC, InputC, RenderC);///All component types
+alias ComponentTypes = AliasSeq!(NicknameC, NetworkC, LocationC, ItemDropC, InputC, SpriteRendererC);///All component types
 
 alias ClientComponentTypes = Filter!(isClientComponent, ComponentTypes);///Components that clients see
 private template isClientComponent(T) {
@@ -83,12 +83,16 @@ class ItemDropC {
 }
 
 @clientVisible
-class RenderC {
+class SpriteRendererC {
 	@SerializeIgnore size_t lastJSONHash;
 
-	string sprite;
+	string spriteName;
+	float[3] tint;
+	float[2] anchor;
 
-	this(string sprite) {
-		this.sprite = sprite;
+	this(string spriteName, float[3] tint = [1, 1, 1], float[2] anchor = [0.5, 0.5]) {
+		this.spriteName = spriteName;
+		this.tint = tint;
+		this.anchor = anchor;
 	}
 }
