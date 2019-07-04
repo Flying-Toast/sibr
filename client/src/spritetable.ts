@@ -1,6 +1,6 @@
 import { logInfo } from "./logging";
 
-class SpriteTable {
+export class SpriteTable {
     table: {[key: string]: string}
     
     onLoad = new Function();

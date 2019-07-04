@@ -7,6 +7,7 @@ import { Network } from "./networking";
 import { Game } from "./game";
 import { InputManager } from './events';
 import { prependListener } from 'cluster';
+import { SpriteTable } from './spritetable';
 
 const app = new PIXI.Application({
     width: 512, height: 256,
