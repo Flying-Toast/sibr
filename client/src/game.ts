@@ -3,6 +3,7 @@ import { Entity, buildEntity } from "./entity";
 import { InputManager } from "./events";
 import { Application } from "pixi.js";
 import { Vector } from "./util";
+import { SpriteTable } from "./spritetable";
 
 export class Configuration {
 

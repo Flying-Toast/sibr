@@ -1,3 +1,5 @@
+import { logInfo } from "./logging";
+
 class SpriteTable {
     table: {[key: string]: string}
     
@@ -18,6 +20,7 @@ class SpriteTable {
     _onLoad() {
         this.loaded = true;
         this.onLoad();
+        logInfo("Sprites loaded");
     }
 
     getTexture(spriteName: string) {

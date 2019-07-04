@@ -12,8 +12,8 @@ export class Network {
     url: string;            // The url of the websocket server
     socketReady = false;    // Whether the socket has connected or not
 
-    onReady: Function;      // Callback for when the socket connects
-    onUpdate: Function;     // Callback for a game update
+    onReady = new Function();      // Callback for when the socket connects
+    onUpdate = new Function();     // Callback for a game update
 
     // Callbacks on a WebSocket message for a given JSON .type value
     tempCallbacks: Callback = {};     // callbacks that are meant to be called only once
