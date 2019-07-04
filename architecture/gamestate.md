@@ -103,3 +103,25 @@ A dropped item, for example, a gun on the ground that can be picked up.
 ```
 
 ---
+
+### `Render`
+Contains information that the client uses for rendering.
+
+```JavaScript
+"Render": {
+	"spriteName": <string>,
+	"tint": <uint8[3]>
+}
+```
+
+---
+### `Collision`
+Contains information that the client uses for rendering.
+
+```JavaScript
+"Render": {
+	"c": <Collidable (non-component class, see gameserver/geometry.d)>
+}
+```
+
+---
