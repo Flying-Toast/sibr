@@ -40,7 +40,7 @@ export class Color {
         const r = 255*this.r;
         const g = 255*this.g;
         const b = 255*this.b;
-        return parseInt(r.toString(16)+g.toString(16)+b.toString(16))
+        return parseInt(r.toString(16)+g.toString(16)+b.toString(16), 16)
     }
 
     static fromArray(arr:number[]): Color {

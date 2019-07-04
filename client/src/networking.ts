@@ -70,6 +70,6 @@ export class Network {
     async startGame(nickname: string) {
         this.send({nickname: nickname});
         const response = await this.waitFor("welcome");
-        console.log(response);
+        return response;
     }
 }

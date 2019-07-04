@@ -1,6 +1,8 @@
 import { Vector, Color } from "./util";
 import { Entity } from "./entity";
 import { Sprite } from "pixi.js";
+import { logError } from "./logging";
+import * as PIXI from 'pixi.js';
 
 export class Component {
     // Name of the component
@@ -21,9 +23,10 @@ export class Component {
         }
     }
 
-    // Should be overwritten to run at initialization
-    onStart() {
-
+    // Should be overwritten to run at initialization with the first state data
+    // setState will be called subsequently so this may be left blank
+    onStart(data: any) {
+        
     }
 
     // Should be overwritten to run each frame
@@ -47,16 +50,19 @@ export class Velocity extends Component {
 
 export class SpriteRenderer extends Component {
     spriteName: string;
-    sprite = new Sprite(null);
+    sprite: Sprite;
+    name = "SpriteRenderer";
 
     setState(data: any) {
         this.sprite.tint = Color.fromArray(data.tint).toHex();
-        this.sprite.anchor = data.anchor;
-        this.spriteName = data.sprite;
+        this.sprite.anchor.set(data.anchor[0], data.anchor[1]);
+        this.spriteName = data.spriteName;
     }
 
-    onStart () {
-        this.sprite.texture = this.entity.game.spriteTable.getTexture(this.spriteName);
+    onStart (data: any) {
+        const tex = this.entity.game.spriteTable.getTexture(data.spriteName);
+        this.sprite = new PIXI.Sprite(tex);
+        this.entity.game.pixiApp.stage.addChild(this.sprite);
     }
     onUpdate() {
         this.sprite.x = this.entity.location.pos.x;
@@ -64,12 +70,12 @@ export class SpriteRenderer extends Component {
     }
 }
 
-const componentTypes = [Location, Velocity];
+const componentTypes = [Location, Velocity, SpriteRenderer];
 
 export function componentTypeFromName(name: string) {
     // will optimize later
     for (const type of componentTypes) {
-        if (type.prototype.name == name) { // i have no idea if this is correct, i'm on the highway and can't look it up
+        if (type.name === name) { // i have no idea if this is correct, i'm on the highway and can't look it up
             return type;
         }
     }

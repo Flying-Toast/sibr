@@ -10,7 +10,7 @@ export class Entity {
     game: Game;
 
     get location(): Components.Location {
-        return this.getComponent("location") as Components.Location;
+        return this.getComponent("Location") as Components.Location;
     }
 
     constructor (id: string) {
@@ -42,15 +42,19 @@ export class Entity {
 export function buildEntity(game: Game, id: string, data: any): Entity {
     const entity = new Entity(id);
     entity.game = game;
+
     for (const componentName in data) {
         const compType = Components.componentTypeFromName(componentName);
         if (compType == null) {
             logError(`Unknown component name ${componentName}`);
         }
         const comp = new compType(); // Instantiate new component
+        
+        comp.entity = entity;
+
+        comp.onStart(data[componentName]); // Call onStart function of the component
         comp.setState(data[componentName]); // Sync proper fields with the server
-        comp.entity = this;
-        comp.onStart(); // Call onStart function of the component
+        
         entity.addComponent(comp);
         
     }
