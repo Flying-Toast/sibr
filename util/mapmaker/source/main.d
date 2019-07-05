@@ -43,10 +43,12 @@ void main(string[] args) {
 	auto data = parseRawImage(cast(ubyte[]) read(imagePath), width, height);
 
 	JSONValue[] mapJSON;
-	foreach (j; data) foreach (index, i; j) {
-		JSONValue tileJSON = getTileJSON(cast(uint) index, 0, i);
-		if (tileJSON["texture"].str != "empty") {
-			mapJSON ~= tileJSON;
+	foreach (y, j; data) {
+		foreach (x, i; j) {
+			JSONValue tileJSON = getTileJSON(cast(uint) x, cast(uint) y, i);
+			if (tileJSON["texture"].str != "empty") {
+				mapJSON ~= tileJSON;
+			}
 		}
 	}
 
