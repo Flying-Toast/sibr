@@ -7,6 +7,7 @@
 ## Features
 
 ## Implementation
+- Only send inputs if they have changed since the last one
 
 ## Optimization
 

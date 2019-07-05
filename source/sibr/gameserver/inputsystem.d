@@ -13,20 +13,24 @@ class Input {
 	ushort lookingX;
 	ushort lookingY;
 	ushort dt;
+}
 
-	void verify() {
-		import std.algorithm : clamp, min;
-		movementX = clamp(movementX, cast(byte) -1, cast(byte) 1);
-		movementY = clamp(movementY, cast(byte) -1, cast(byte) 1);
-		dt = min(cfg.maxInputDT, dt);
-	}
+void verify(Input input) {
+	import std.algorithm : clamp, min;
+	input.movementX = clamp(input.movementX, cast(byte) -1, cast(byte) 1);
+	input.movementY = clamp(input.movementY, cast(byte) -1, cast(byte) 1);
+	input.dt = min(cfg.maxInputDT, input.dt);
 }
 
 class InputSystem : System {
 	override void tick(long dt) {
+		auto veloictyComponents = entityManager.getComponents!VelocityC;
+
 		foreach (id, c; entityManager.getComponents!InputC) if (c !is null) {
+			assert(entityManager.hasComponent!VelocityC(cast(ushort) id), "All entities with an input component must also have a velocity component.");
+			auto velocity = veloictyComponents[id];
 			foreach (input; c.inputs) {
-				//process the input here
+				velocity.x = input.movementX;
 			}
 
 			c.inputs = [];//remove all the inputs after they have been processed

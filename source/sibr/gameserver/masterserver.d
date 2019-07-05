@@ -98,7 +98,13 @@ void runGame() {
 			master.addPlayerToGame(playerConfig);
 		}
 
-		master.tick();
+		try {
+			master.tick();
+		} catch (Throwable t) {
+			import std.stdio;
+			stderr.writeln(t);
+			throw t;
+		}
 
 		Thread.sleep(dur!"msecs"(cfg.masterLoopInterval));
 	}

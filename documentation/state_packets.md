@@ -128,3 +128,13 @@ Contains information that the client uses for rendering.
 ```
 
 ---
+### `Velocity`
+
+```JavaScript
+"Velocity": {
+	"x": <float>,
+	"y": <float>
+}
+```
+
+---

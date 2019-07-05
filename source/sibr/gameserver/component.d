@@ -6,7 +6,7 @@ import painlessjson;
 ///All component types
 alias ComponentTypes = AliasSeq!(
 	NicknameC, NetworkC, LocationC, ItemDropC, InputC,
-	RenderC, CollisionC
+	RenderC, CollisionC, VelocityC
 );
 
 alias ClientComponentTypes = Filter!(isClientComponent, ComponentTypes);///Components that clients see
@@ -109,5 +109,18 @@ class CollisionC {
 
 	this(Collidable c) {
 		this.c = c;
+	}
+}
+
+@clientVisible
+class VelocityC {
+	@SerializeIgnore size_t lastJSONHash;
+
+	float x;
+	float y;
+
+	this(float x, float y) {
+		this.x = x;
+		this.y = y;
 	}
 }

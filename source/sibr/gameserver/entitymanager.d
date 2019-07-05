@@ -78,6 +78,7 @@ entityID_t createPlayer(EntityManager em, string nickname, ushort socketID, Loca
 	em.addComponent(id, location);
 	em.addComponent(id, new InputC);
 	em.addComponent(id, new RenderC("player"));
+	em.addComponent(id, new VelocityC(0, 0));
 
 	return id;
 }
