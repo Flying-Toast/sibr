@@ -12,6 +12,7 @@
 
 - Component type lookup is O(n)
 - Add PIXI.Sprite instance caching in Level.render()
+- Fetch & process the map on page load, not on game start
 
 ## Refactoring
 
