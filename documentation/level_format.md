@@ -47,4 +47,5 @@ This mapdef:
 ```
 
 Represents this map (brown=dirt, white=empty):
+
 ![example map image](exampleMap.png)
