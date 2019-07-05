@@ -37,11 +37,11 @@ This mapdef:
 	"height": 3,
 	"map": [
 	  {"texture":"dirt","x":2,"y":0},
-	  {"texture":"dirt","x":1,"y":0},
-	  {"texture":"dirt","x":2,"y":0},
-	  {"texture":"dirt","x":0,"y":0},
-	  {"texture":"dirt","x":1,"y":0},
-	  {"texture":"dirt","x":2,"y":0}
+	  {"texture":"dirt","x":1,"y":1},
+	  {"texture":"dirt","x":2,"y":1},
+	  {"texture":"dirt","x":0,"y":2},
+	  {"texture":"dirt","x":1,"y":2},
+	  {"texture":"dirt","x":2,"y":2}
 	]
 }
 ```
