@@ -27,10 +27,10 @@ class InputSystem : System {
 		auto veloictyComponents = entityManager.getComponents!VelocityC;
 
 		foreach (id, c; entityManager.getComponents!InputC) if (c !is null) {
-			assert(entityManager.hasComponent!VelocityC(cast(ushort) id), "All entities with an input component must also have a velocity component.");
+			assert(entityManager.hasComponent!VelocityC(cast(entityID_t) id), "All entities with an input component must also have a velocity component.");
 			auto velocity = veloictyComponents[id];
 			foreach (input; c.inputs) {
-				velocity.x = input.movementX;
+				velocity.x = cfg.inputVelocityMultiplier * input.movementX;
 			}
 
 			c.inputs = [];//remove all the inputs after they have been processed
