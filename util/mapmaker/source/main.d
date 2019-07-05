@@ -11,6 +11,7 @@ static this() {
 	textures = [
 		[255, 255, 255]: "empty",
 		[120, 81, 33]: "dirt",
+		[68, 68, 68]: "barrier",
 	];
 }
 
@@ -80,7 +81,7 @@ string getTileTexture(ubyte[] color) {
 	if (color in textures) {
 		return textures[color];
 	} else {
-		throw new Exception("Unrecognized color '"~toHexString(color)~"'.");
+		return null;
 	}
 }
 
@@ -89,6 +90,11 @@ JSONValue getTileJSON(uint x, uint y, ubyte[] color) {
 
 	tile["x"] = x;
 	tile["y"] = y;
+	string texture = getTileTexture(color);
+	if (texture == null) {
+		import std.conv : text;
+		throw new Exception(text("Unrecognized color '", toHexString(color), "' at (", x, ",", y, ")."));
+	}
 	tile["texture"] = getTileTexture(color);
 
 	return tile;
