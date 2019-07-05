@@ -1,9 +1,10 @@
 import { Network } from "./networking";
 import { Entity, buildEntity } from "./entity";
 import { InputManager } from "./events";
-import { Application } from "pixi.js";
-import { Vector } from "./util";
+import { Application, Sprite } from "pixi.js";
+import { Vector, loadJSON } from "./util";
 import { SpriteTable } from "./spritetable";
+import { Level } from "./level";
 
 export class Configuration {
 
@@ -18,6 +19,9 @@ export class Game {
     entities: {[key:string]:Entity} = {};
     knownEntities = new Set<string>();
 
+    level: Level;
+    levelSprite: Sprite;
+
     constructor (
             network: Network,
             inputManager: InputManager,
@@ -31,6 +35,12 @@ export class Game {
 
         this.network.onUpdate = this.pullGameState.bind(this);
         this.pixiApp.ticker.add(this.gameLoop.bind(this));
+        
+        this.level = Level.fromJSON(this, loadJSON("map.json"));
+        this.level.preallocate();
+        const tex = this.level.render();
+        this.levelSprite = new Sprite(tex);
+        this.pixiApp.stage.addChild(this.levelSprite);
     }
 
     gameLoop (deltaTime: number) {

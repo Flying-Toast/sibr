@@ -60,7 +60,7 @@ export class Level {
         this.variants = new Uint8Array(this.size);
     }
 
-    static fromJSON(game: Game, data: any) {
+    static fromJSON(game: Game, data: any): Level {
         const map = data.map;
         const w = data.width;
         const h = data.height;
@@ -70,6 +70,7 @@ export class Level {
             const tile = lvl.getTile(tileData.x, tileData.y);
             tile.tileID = this.tileCodes[tileData.texture];
         }
+        return lvl;
     }
 
     _getIndex(x: number, y: number) {
