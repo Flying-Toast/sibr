@@ -60,8 +60,8 @@ ubyte[][][] parseRawImage(ubyte[] rawData, uint width, uint height) {
 
 	for (auto y = 0; y < height; y++) {
 		for (auto x = 0; x < width; x++) {
-			auto rowSize = width * 4 * y;
-			auto firstItem = rowSize + x*4;
+			auto rowSize = width * 3 * y;
+			auto firstItem = rowSize + x*3;
 			data[y][x] = [rawData[firstItem], rawData[firstItem+1], rawData[firstItem+2]];
 		}
 	}
