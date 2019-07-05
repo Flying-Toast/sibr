@@ -39,6 +39,11 @@ export class Game {
 
         for (const id in this.entities) {
             const entity = this.entities[id];
+            entity.onPreUpdate();
+        }
+
+        for (const id in this.entities) {
+            const entity = this.entities[id];
             entity.onUpdate();
         }
 

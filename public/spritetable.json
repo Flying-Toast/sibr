@@ -1,3 +1,4 @@
 {
-    "crate":"sprites/environment/crate.png"
+    "crate":"sprites/environment/crate.png",
+    "player":"sprites/weapons/ak47.png"
 }

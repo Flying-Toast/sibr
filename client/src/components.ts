@@ -10,6 +10,11 @@ export class Component {
 
     // A reference to the parent entity
     entity: Entity;
+
+    constructor () {
+        
+    }
+
     /*
         Update state using the values sent by the server
         If the structure of the component state differs
@@ -29,6 +34,12 @@ export class Component {
 
     }
 
+    // Should be overwritten to run before any onUpdate calls on every frame
+    // Code such as physics should go here.
+    onPreUpdate() {
+
+    }
+
     // Should be overwritten to run each frame
     onUpdate() {
 
@@ -36,7 +47,6 @@ export class Component {
 }
 export class Location extends Component {
     pos: Vector;
-    name = "Location";
 
     setState(data: any) {
         this.pos = new Vector(data.x, data.y);
@@ -45,7 +55,6 @@ export class Location extends Component {
 export class Velocity extends Component {
     vx: number;
     vy: number;
-    name = "Velocity";
 }
 
 function defaultField(val: any, defaultValue: any) {
@@ -57,7 +66,6 @@ function defaultField(val: any, defaultValue: any) {
 export class Render extends Component {
     spriteName: string;
     sprite: Sprite;
-    name = "Render";
 
     setState(data: any) {
         this.sprite.tint = Color.fromArray(
@@ -81,7 +89,6 @@ export class Render extends Component {
 
 export class Nickname extends Component {
 	nickname: string;
-	name = "Nickname";
 }
 
 const componentTypes = [Location, Velocity, Render, Nickname];

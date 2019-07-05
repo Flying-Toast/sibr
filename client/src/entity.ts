@@ -18,7 +18,8 @@ export class Entity {
     }
 
     addComponent(comp: Component) {
-        this.components[comp.name] = comp;
+        const componentName = comp.constructor.name;
+        this.components[componentName] = comp;
     }
 
     getComponent(name: string): Component {
@@ -29,6 +30,12 @@ export class Entity {
     setState(data: any) {
         for (const componentName in this.components) {
             this.components[componentName].setState(data[componentName]);
+        }
+    }
+
+    onPreUpdate() {
+        for (const componentName in this.components) {
+            this.components[componentName].onPreUpdate();
         }
     }
 

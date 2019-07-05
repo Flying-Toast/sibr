@@ -1,4 +1,4 @@
-import { logInfo } from "./logging";
+import { logInfo, logError } from "./logging";
 import * as PIXI from 'pixi.js';
 
 export class SpriteTable {
@@ -16,7 +16,9 @@ export class SpriteTable {
             logInfo(`Loading ${spriteName} as ${spritePath}`);
             app.loader.add(spritePath);
         }
+        app.loader.onError.add(this._onError.bind(this));
         app.loader.load(this._onLoad.bind(this));
+        
     }
 
     _onLoad() {
@@ -25,7 +27,14 @@ export class SpriteTable {
         logInfo("Sprites loaded");
     }
 
+    _onError(err: Error) {
+        logError("[PIXI loader] "+err.message);
+    }
+
     getTexture(spriteName: string) {
+        if (this.table[spriteName] == undefined) {
+            logError(`Texture with alias "${spriteName}" was not found`);
+        }
         return this.cache[this.table[spriteName]];
     }
 }
