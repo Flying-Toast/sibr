@@ -2,7 +2,7 @@
 
 ## Details
 - All communication is done via websockets.
-- All messages are in JSON format.
+- All messages are in JSON/msgpack format.
 - A single websocket connection only lasts for a single game. The frontend opens the websocket when the user clicks 'play', and  the connection is closed when the game ends (or when the player dies).
 - It is the server's job to close websocket connections. The only case where a connection could be closed by the frontend is if the player closes the browser tab mid-game.
 - When the server closes the websocket, it means that the player has died. The frontend should then act accordingly (e.g displaying "you died", hiding the game & showing the main menu, etc).
@@ -48,7 +48,8 @@ Once the server receives the configuration message, it replies with a 'welcome m
 	"type": "welcome",
 	"data": {
 		<entity state data> //(see architecture/gamestate.md)
-	}
+	},
+	"you": <integer> //the entity id of the client's player
 }
 ```
 

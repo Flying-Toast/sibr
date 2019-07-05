@@ -62,6 +62,7 @@ class NetworkSystem : System {
 		JSONValue messageJSON = JSONValue();
 		messageJSON["type"] = "welcome";
 		messageJSON["data"] = getState!(stateType.full);
+		messageJSON["you"] = socketID;
 
 		ubyte[] message = fromJSONValue(messageJSON).pack();
 

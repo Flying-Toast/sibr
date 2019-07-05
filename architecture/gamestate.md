@@ -33,13 +33,16 @@ An example of a 'welcome message' (see networking architecture), which contains 
 				"vy": -3
 			}
 		}
-	}
+	},
+	"you": 3//the entity id of the client's player
 }
 ```
 
 This welcome message contains the state of 2 different entities (in reality, a welcome message would probably have more than 2 entites, because welcome messages contain the state of *every* entity in the game).
 
 The 2 entities in this message have the IDs 3 and 17 (every property of `data` is an entity id). The value of each of these properties is a JSON object containing all of the components which that entity has.
+
+The `you` property informs the client of which player is theirs (i.e. the entity id of the client's player).
 
 ---
 
