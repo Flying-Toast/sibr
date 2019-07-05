@@ -1,7 +1,7 @@
 # Map Definition file
 
 ## Details
-- The "mapdef" file is a JSON/msgpack file located at the URL `<hostname>/map`.
+- The "mapdef" file is a JSON file located at the URL `<hostname>/map.json`.
 
 ## Format
 ```JavaScript

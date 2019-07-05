@@ -1,7 +1,6 @@
 import std.stdio;
 import std.file;
 import std.json;
-import msgpack;
 string toHexString(const(ubyte)[] data) {
 	import std.digest : toHexString_ = toHexString;
 	return "#" ~ cast(string) toHexString_(data);
@@ -20,19 +19,15 @@ void main(string[] args) {
 
 	uint width, height;
 	string imagePath = "image.data";
-	bool msgpackOutput = false;
 
-	if (args.length == 3 || args.length == 4 || args.length == 5) {
+	if (args.length == 3 || args.length == 4) {
 		width = args[1].to!uint;
 		height = args[2].to!uint;
-		if (args.length == 4 || args.length == 5) {
-			msgpackOutput = args[3].to!bool;
-			if (args.length == 5) {
-				imagePath = args[4];
-			}
+		if (args.length == 4) {
+			imagePath = args[3];
 		}
 	} else {
-		writeln(`Usage: mapmaker <imageWidth> <imageHeight> [<msgpackOutput> = false] [<imagePath> = "image.data"]`);
+		writeln(`Usage: mapmaker <imageWidth> <imageHeight> [<imagePath> = "image.data"]`);
 		writeln(`Input format is "Raw image data" exported from GIMP.`);
 		writeln("Output is printed to stdout.");
 		writeln();
@@ -62,11 +57,7 @@ void main(string[] args) {
 	mapdefJSON["width"] = width;
 	mapdefJSON["height"] = height;
 
-	if (msgpackOutput) {
-		stdout.rawWrite(fromJSONValue(mapdefJSON).pack());
-	} else {
-		writeln(mapdefJSON.toString());
-	}
+	writeln(mapdefJSON.toString());
 }
 
 ubyte[][][] parseRawImage(ubyte[] rawData, uint width, uint height) {
