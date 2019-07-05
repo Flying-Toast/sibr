@@ -1,13 +1,56 @@
 import std.stdio;
 import std.file;
+import std.json;
+string toHexString(const(ubyte)[] data) {
+	import std.digest : toHexString_ = toHexString;
+	return "#" ~ cast(string) toHexString_(data);
+}
+
+string[ubyte[]] textures;
+static this() {
+	textures = [
+		[255, 255, 255]: "empty",
+		[120, 81, 33]: "dirt",
+	];
+}
 
 void main(string[] args) {
 	import std.conv;
 
-	auto width = args[1].to!uint;
-	auto height = args[2].to!uint;
+	uint width, height;
+	string imagePath = "image.data";
 
-	auto data = parseRawImage(cast(ubyte[]) read("image.data"), width, height);
+	if (args.length == 3 || args.length == 4) {
+		width = args[1].to!uint;
+		height = args[2].to!uint;
+		if (args.length == 4) {
+			imagePath = args[3];
+		}
+	} else {
+		writeln(`Usage: mapmaker <imageWidth> <imageHeight> [<imagePath> = "image.data"]`);
+		writeln(`Input format is "Raw image data" exported from GIMP.`);
+		writeln("Output is printed to stdout.");
+		writeln();
+		writeln("---");
+		writeln("Color Key:");
+		foreach (color, texture; textures) {
+			writeln(texture, " = ", color.toHexString);
+		}
+		writeln("---");
+		return;
+	}
+
+	auto data = parseRawImage(cast(ubyte[]) read(imagePath), width, height);
+
+	JSONValue[] map;
+	foreach (index, i; data[0]) {
+		JSONValue tileJSON = getTileJSON(cast(uint) index, 0, i);
+		if (tileJSON["texture"].str != "empty") {
+			map ~= tileJSON;
+		}
+	}
+
+	writeln(JSONValue(map).toString());
 }
 
 ubyte[][][] parseRawImage(ubyte[] rawData, uint width, uint height) {
@@ -26,16 +69,20 @@ ubyte[][][] parseRawImage(ubyte[] rawData, uint width, uint height) {
 	return data;
 }
 
-string tileType(ubyte[] color) {
-	string[ubyte[]] map = [
-		[255, 255, 255]: "empty",
-		[120, 81, 33]: "dirt",
-	];
-
-	if (color in map) {
-		return map[color];
+string getTileTexture(ubyte[] color) {
+	if (color in textures) {
+		return textures[color];
 	} else {
-		import std.digest : toHexString;
-		throw new Exception("Unrecognized color '#"~cast(string) toHexString(color)~"'.");
+		throw new Exception("Unrecognized color '"~toHexString(color)~"'.");
 	}
+}
+
+JSONValue getTileJSON(uint x, uint y, ubyte[] color) {
+	JSONValue tile = JSONValue();
+
+	tile["x"] = x;
+	tile["y"] = y;
+	tile["texture"] = getTileTexture(color);
+
+	return tile;
 }
