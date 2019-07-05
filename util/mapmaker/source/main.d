@@ -1,16 +1,18 @@
 import std.stdio;
 import std.file;
-import std.conv;
-import std.array;
 
 void main(string[] args) {
+	import std.conv;
+
 	auto width = args[1].to!uint;
 	auto height = args[2].to!uint;
 
-	auto data = parseData(cast(ubyte[]) read("image.data"), width, height);
+	auto data = parseRawImage(cast(ubyte[]) read("image.data"), width, height);
 }
 
-ubyte[][][] parseData(ubyte[] rawData, uint width, uint height) {
+ubyte[][][] parseRawImage(ubyte[] rawData, uint width, uint height) {
+	import std.array;
+
 	auto data = uninitializedArray!(ubyte[][][])(height, width, 3);
 
 	for (auto y = 0; y < height; y++) {
@@ -22,4 +24,18 @@ ubyte[][][] parseData(ubyte[] rawData, uint width, uint height) {
 	}
 
 	return data;
+}
+
+string tileType(ubyte[] color) {
+	string[ubyte[]] map = [
+		[255, 255, 255]: "empty",
+		[120, 81, 33]: "dirt",
+	];
+
+	if (color in map) {
+		return map[color];
+	} else {
+		import std.digest : toHexString;
+		throw new Exception("Unrecognized color '#"~cast(string) toHexString(color)~"'.");
+	}
 }
