@@ -42,15 +42,20 @@ void main(string[] args) {
 
 	auto data = parseRawImage(cast(ubyte[]) read(imagePath), width, height);
 
-	JSONValue[] map;
+	JSONValue[] mapJSON;
 	foreach (index, i; data[0]) {
 		JSONValue tileJSON = getTileJSON(cast(uint) index, 0, i);
 		if (tileJSON["texture"].str != "empty") {
-			map ~= tileJSON;
+			mapJSON ~= tileJSON;
 		}
 	}
 
-	writeln(JSONValue(map).toString());
+	JSONValue mapdefJSON = JSONValue();
+	mapdefJSON["map"] = JSONValue(mapJSON);
+	mapdefJSON["width"] = width;
+	mapdefJSON["height"] = height;
+
+	writeln(mapdefJSON.toString());
 }
 
 ubyte[][][] parseRawImage(ubyte[] rawData, uint width, uint height) {
