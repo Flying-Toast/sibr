@@ -6,8 +6,8 @@ import sibr.gameserver.component;
 import cfg = sibr.config;
 
 class Input {
-	byte movementX;//can be 1 or -1
-	byte movementY;//can be 1 or -1
+	byte movementX;//can be 1, -1, or 0
+	byte movementY;//can be 1, -1, or 0
 	bool jumping;
 	bool firing;
 	ushort lookingX;
