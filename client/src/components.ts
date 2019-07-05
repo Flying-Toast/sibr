@@ -26,7 +26,7 @@ export class Component {
     // Should be overwritten to run at initialization with the first state data
     // setState will be called subsequently so this may be left blank
     onStart(data: any) {
-        
+
     }
 
     // Should be overwritten to run each frame
@@ -54,10 +54,10 @@ function defaultField(val: any, defaultValue: any) {
     }
     return val;
 }
-export class SpriteRenderer extends Component {
+export class Render extends Component {
     spriteName: string;
     sprite: Sprite;
-    name = "SpriteRenderer";
+    name = "Render";
 
     setState(data: any) {
         this.sprite.tint = Color.fromArray(
@@ -79,7 +79,12 @@ export class SpriteRenderer extends Component {
     }
 }
 
-const componentTypes = [Location, Velocity, SpriteRenderer];
+export class Nickname extends Component {
+	nickname: string;
+	name = "Nickname";
+}
+
+const componentTypes = [Location, Velocity, Render, Nickname];
 
 export function componentTypeFromName(name: string) {
     // will optimize later
