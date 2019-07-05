@@ -11,7 +11,6 @@ static this() {
 	textures = [
 		[255, 255, 255]: "empty",
 		[120, 81, 33]: "dirt",
-		[68, 68, 68]: "barrier",
 	];
 }
 
