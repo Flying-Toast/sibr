@@ -13,3 +13,5 @@ mapmaker-test-*
 *.o
 *.obj
 *.lst
+
+image.data

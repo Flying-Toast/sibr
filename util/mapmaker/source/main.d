@@ -7,7 +7,10 @@ void main(string[] args) {
 	auto width = args[1].to!uint;
 	auto height = args[2].to!uint;
 
-	auto rawData = cast(ubyte[]) read("image.data");
+	auto data = parseData(cast(ubyte[]) read("image.data"), width, height);
+}
+
+ubyte[][][] parseData(ubyte[] rawData, uint width, uint height) {
 	auto data = uninitializedArray!(ubyte[][][])(height, width, 3);
 
 	for (auto y = 0; y < height; y++) {
@@ -17,4 +20,6 @@ void main(string[] args) {
 			data[y][x] = [rawData[firstItem], rawData[firstItem+1], rawData[firstItem+2]];
 		}
 	}
+
+	return data;
 }
