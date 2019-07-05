@@ -1,3 +1,5 @@
+import { logError } from "./logging";
+
 export class Vector {
     x: number;
     y: number;
