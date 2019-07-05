@@ -1,0 +1,15 @@
+.dub
+docs.json
+__dummy.html
+docs/
+/mapmaker
+mapmaker.so
+mapmaker.dylib
+mapmaker.dll
+mapmaker.a
+mapmaker.lib
+mapmaker-test-*
+*.exe
+*.o
+*.obj
+*.lst

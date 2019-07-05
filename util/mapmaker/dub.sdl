@@ -1,0 +1,5 @@
+name "mapmaker"
+description "Image to JSON map"
+authors "Flying-Toast"
+copyright "Copyright © 2019, Flying-Toast"
+license "GPL3"
