@@ -11,6 +11,7 @@
 ## Optimization
 
 - Component type lookup is O(n)
+- Add PIXI.Sprite instance caching in Level.render()
 
 ## Refactoring
 
