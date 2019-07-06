@@ -127,27 +127,27 @@ export class Level {
         const down = t.offset(0, 1);
 
         if (!left.inBounds) {
-            xBias -= 1;
+            xBias += 1;
         } else if (left.tileID == t.tileID) {
-            xBias -= 1;
+            xBias += 1;
         }
 
         if (!right.inBounds) {
-            xBias += 1;
+            xBias -= 1;
         } else if (right.tileID == t.tileID) {
-            xBias += 1;
+            xBias -= 1;
         }
 
         if (!up.inBounds) {
-            yBias -= 1;
+            yBias += 1;
         } else if (up.tileID == t.tileID) {
-            yBias -= 1;
+            yBias += 1;
         }
 
         if (!down.inBounds) {
-            yBias += 1;
+            yBias -= 1;
         } else if (down.tileID == t.tileID) {
-            yBias += 1;
+            yBias -= 1;
         }
 
         if (xBias == -1 && yBias == -1) {
@@ -177,7 +177,7 @@ export class Level {
         if (xBias == 1 && yBias == 1) {
             return 8;
         }
-        return 5;
+        return 4;
     }
 
     render(): RenderTexture {

@@ -8,6 +8,7 @@ import { Game } from "./game";
 import { InputManager } from './events';
 import { prependListener } from 'cluster';
 import { loadFile, loadJSON } from './util';
+import { logSuccess } from './logging';
 
 const app = new PIXI.Application({
     width: 512, height: 256,
@@ -20,6 +21,12 @@ window.addEventListener('resize', resize); // Dynamically resize canvas
 const wsURL = `ws${(location.protocol==="https:")?"s":""}://${location.host}/ws`;
 var network = new Network(wsURL);
 var inputs = new InputManager(window);
+
+app.loader.add("assets/spritesheet.json").load(
+    ()=>{
+        logSuccess("Assets loaded");
+    }
+);
 
 network.onReady = async ()=>{
     $("#networkstatus").text(""); // Remove "Connecting..." message on the homescreen

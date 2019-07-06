@@ -1,6 +1,7 @@
 import { Network } from "./networking";
 import { Entity, buildEntity } from "./entity";
 import { InputManager } from "./events";
+import * as PIXI from 'pixi.js';
 import { Application, Sprite, Texture } from "pixi.js";
 import { Vector, loadJSON } from "./util";
 import { Level } from "./level";
@@ -30,15 +31,16 @@ export class Game {
         this.network = network;
         this.inputManager = inputManager;
         this.pixiApp = pixiApp;
-        this.pixiApp.renderer.backgroundColor = 0x061639;
+        this.pixiApp.renderer.backgroundColor = 0xeee5c0;
 
         this.network.onUpdate = this.pullGameState.bind(this);
         this.pixiApp.ticker.add(this.gameLoop.bind(this));
         
         this.texCache = PIXI.utils.TextureCache;
-
+        
         this.level = Level.fromJSON(this, loadJSON("map.json"));
         this.level.preallocate();
+        this.level.bakeDetails();
         const tex = this.level.render();
         this.levelSprite = new Sprite(tex);
         this.pixiApp.stage.addChild(this.levelSprite);
