@@ -7,7 +7,6 @@ import { Network } from "./networking";
 import { Game } from "./game";
 import { InputManager } from './events';
 import { prependListener } from 'cluster';
-import { SpriteTable } from './spritetable';
 import { loadFile, loadJSON } from './util';
 
 const app = new PIXI.Application({
@@ -21,12 +20,11 @@ window.addEventListener('resize', resize); // Dynamically resize canvas
 const wsURL = `ws${(location.protocol==="https:")?"s":""}://${location.host}/ws`;
 var network = new Network(wsURL);
 var inputs = new InputManager(window);
-var spriteTable = new SpriteTable(app, loadJSON("spritetable.json"), "assets");
 
 network.onReady = async ()=>{
     $("#networkstatus").text(""); // Remove "Connecting..." message on the homescreen
     const welcome: any = await network.startGame(<string> $("#nickname").val());
-    game = new Game(network, inputs, app, spriteTable);
+    game = new Game(network, inputs, app);
     game.pullGameState(welcome.data);
     console.log(welcome);
     

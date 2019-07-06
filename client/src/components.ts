@@ -77,7 +77,7 @@ export class Render extends Component {
     }
 
     onStart (data: any) {
-        const tex = this.entity.game.spriteTable.getTexture(data.spriteName);
+        const tex = this.entity.game.getTexture(data.spriteName);
         this.sprite = new PIXI.Sprite(tex);
         this.entity.game.pixiApp.stage.addChild(this.sprite);
     }

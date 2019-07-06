@@ -1,9 +1,8 @@
 import { Network } from "./networking";
 import { Entity, buildEntity } from "./entity";
 import { InputManager } from "./events";
-import { Application, Sprite } from "pixi.js";
+import { Application, Sprite, Texture } from "pixi.js";
 import { Vector, loadJSON } from "./util";
-import { SpriteTable } from "./spritetable";
 import { Level } from "./level";
 
 export class Configuration {
@@ -14,7 +13,6 @@ export class Game {
     network: Network;
     inputManager: InputManager;
     pixiApp: Application;
-    spriteTable: SpriteTable;
 
     entities: {[key:string]:Entity} = {};
     knownEntities = new Set<string>();
@@ -22,25 +20,32 @@ export class Game {
     level: Level;
     levelSprite: Sprite;
 
+    texCache: any;
+
     constructor (
             network: Network,
             inputManager: InputManager,
             pixiApp: Application,
-            spriteTable : SpriteTable
         ) {
         this.network = network;
         this.inputManager = inputManager;
         this.pixiApp = pixiApp;
-        this.spriteTable = spriteTable;
+        this.pixiApp.renderer.backgroundColor = 0x061639;
 
         this.network.onUpdate = this.pullGameState.bind(this);
         this.pixiApp.ticker.add(this.gameLoop.bind(this));
         
+        this.texCache = PIXI.utils.TextureCache;
+
         this.level = Level.fromJSON(this, loadJSON("map.json"));
         this.level.preallocate();
         const tex = this.level.render();
         this.levelSprite = new Sprite(tex);
         this.pixiApp.stage.addChild(this.levelSprite);
+    }
+
+    getTexture(name: string): Texture {
+        return this.texCache[name+".png"];
     }
 
     gameLoop (deltaTime: number) {
