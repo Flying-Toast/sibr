@@ -6,19 +6,19 @@ import sibr.gameserver.component;
 import cfg = sibr.config;
 
 class Input {
-	byte movementX;//can be 1, -1, or 0
-	byte movementY;//can be 1, -1, or 0
+	int movementX;//can be 1, -1, or 0
+	int movementY;//can be 1, -1, or 0
 	bool jumping;
 	bool firing;
-	ushort lookingX;
-	ushort lookingY;
-	ushort dt;
+	int lookingX;
+	int lookingY;
+	int dt;
 }
 
 void verify(Input input) {
 	import std.algorithm : clamp, min;
-	input.movementX = clamp(input.movementX, cast(byte) -1, cast(byte) 1);
-	input.movementY = clamp(input.movementY, cast(byte) -1, cast(byte) 1);
+	input.movementX = clamp(input.movementX, -1, 1);
+	input.movementY = clamp(input.movementY, -1, 1);
 	input.dt = min(cfg.maxInputDT, input.dt);
 }
 

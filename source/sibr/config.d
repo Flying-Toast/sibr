@@ -15,7 +15,7 @@ enum clientUpdateInterval = 100;
 enum masterLoopInterval = 5;
 
 ///maximum dt to trust from clients
-enum ubyte maxInputDT = 40;
+enum maxInputDT = 40;
 
 ///The movement values of inputs are multiplied by this to determine the velocity
 enum float inputVelocityMultiplier = 0.002;
