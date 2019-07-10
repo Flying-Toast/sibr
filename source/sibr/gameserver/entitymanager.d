@@ -1,6 +1,7 @@
 module sibr.gameserver.entitymanager;
 
 import sibr.gameserver.component;
+import sibr.webserver.incomingqueue;
 
 alias entityID_t = ushort;
 
@@ -70,7 +71,7 @@ class EntityManager {
 	}
 }
 
-entityID_t createPlayer(EntityManager em, string nickname, ushort socketID, LocationC location) {
+entityID_t createPlayer(EntityManager em, string nickname, socketID_t socketID, LocationC location) {
 	immutable id = em.createEntity();
 
 	em.addComponent(id, new NicknameC(nickname));

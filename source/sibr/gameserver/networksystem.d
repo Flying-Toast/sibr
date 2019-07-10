@@ -6,6 +6,7 @@ import sibr.gameserver.utils;
 import sibr.gameserver.inputsystem;
 import sibr.gameserver.component;
 import cfg = sibr.config;
+import sibr.webserver.incomingqueue;
 
 class NetworkSystem : System {
 	import std.json;
@@ -56,7 +57,7 @@ class NetworkSystem : System {
 	}
 
 	///Sends a 'welcome message' (see architecture/networking.md) to the socket `socketID`.
-	private void sendWelcomeMessage(ushort socketID) {
+	private void sendWelcomeMessage(socketID_t socketID) {
 		import sibr.webserver.queues;
 
 		JSONValue messageJSON = JSONValue();

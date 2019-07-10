@@ -2,9 +2,10 @@ module sibr.webserver.server;
 
 import vibe.vibe;
 import sibr.webserver.queues;
+import sibr.webserver.incomingqueue;
 
 final class WebServer {
-	private ushort lastSocketID;///The id of the last socket. Incremented each time a new socket connects.
+	private socketID_t lastSocketID;///The id of the last socket. Incremented each time a new socket connects.
 
 	void getWS(scope WebSocket socket) {
 		auto socketID = lastSocketID++;

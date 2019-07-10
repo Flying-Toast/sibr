@@ -2,6 +2,7 @@ module sibr.gameserver.component;
 
 import std.meta;
 import painlessjson;
+import sibr.webserver.incomingqueue;
 
 ///All component types
 alias ComponentTypes = AliasSeq!(
@@ -28,9 +29,9 @@ class NetworkC {
 		welcomed
 	}
 	ConnectionState state;
-	immutable ushort socketID;
+	immutable socketID_t socketID;
 
-	this(ushort socketID) {
+	this(socketID_t socketID) {
 		this.socketID = socketID;
 		state = ConnectionState.justConnected;
 	}

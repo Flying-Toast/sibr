@@ -1,13 +1,14 @@
 module sibr.gameserver.configmessage;
 
 import cfg = sibr.config;
+import sibr.webserver.incomingqueue;
 
 ///Data class for the clients 'config message' (see architecture/networking.md)
 class ConfigMessage {
 	immutable string nickname;
-	immutable ushort socketID;///The id of the websocket whose configmessage this is.
+	immutable socketID_t socketID;///The id of the websocket whose configmessage this is.
 
-	this(string name, ushort id) {
+	this(string name, socketID_t id) {
 		import std.string : strip;
 
 		socketID = id;
