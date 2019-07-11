@@ -16,10 +16,10 @@ class Input {
 }
 
 void verify(Input input) {
-	import std.algorithm : clamp, min;
+	import std.algorithm : clamp;
 	input.movementX = clamp(input.movementX, -1, 1);
 	input.movementY = clamp(input.movementY, -1, 1);
-	input.dt = min(cfg.maxInputDT, input.dt);
+	input.dt = clamp(input.dt, 0, cfg.maxInputDT);
 }
 
 class InputSystem : System {
