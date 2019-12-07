@@ -1,1 +1,0 @@
-{"version":3,"file":"testWorld.js","sourceRoot":"","sources":["../../src/game/testWorld.ts"],"names":[],"mappings":";;AAAA,yCAAkC;AAClC,yCAAkC;AAClC,+CAA2C;AAE3C,MAAqB,SAAU,SAAQ,eAAK;IAExC;QACI,KAAK,EAAE,CAAC;QACR,IAAI,CAAC,KAAK,GAAG,IAAI,eAAK,CAAC,GAAG,EAAE,GAAG,CAAC,CAAC;QACjC,IAAI,CAAC,YAAY,CAAC,wBAAU,CAAC,CAAC;IAClC,CAAC;CACJ;AAPD,4BAOC"}
