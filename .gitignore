@@ -1,18 +1,11 @@
-.dub
-docs.json
-__dummy.html
-docs/
-/sibr
-sibr.so
-sibr.dylib
-sibr.dll
-sibr.a
-sibr.lib
-sibr-test-*
+
 *.exe
 *.o
 *.obj
 *.lst
+*.js.map
+
+gameserver/build
 
 **/.DS_Store
 **/node_modules
