@@ -1,8 +1,0 @@
-name "sibr"
-description "Side-scrolling battle royale game"
-authors "Flying-Toast" "iahuang"
-copyright "Copyright © 2019, Flying-Toast"
-license "GPL3"
-dependency "vibe-d" version="~>0.8.5"
-dependency "painlessjson" version="~>1.3.9"
-dependency "msgpack-d" version="~master"
