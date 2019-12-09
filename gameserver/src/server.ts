@@ -4,7 +4,7 @@ import { Socket } from "socket.io";
 import { WorldCycleData, EntityCycleData } from "./core/cycleDataInterfaces";
 import Entity from "./core/entity";
 import { gameConfig } from "./config";
-import { EntitySync, EntityEvent, GameEvent, Mechanics } from "./core/enums";
+import { EntityEvent, GameEvent, Mechanics } from "./core/enums";
 import Vector from "./core/vector";
 
 export default class GameServer {
@@ -49,6 +49,10 @@ export default class GameServer {
         this.catchUpClient(client);
     }
 
+    private onDisconnect(socket: SocketIO.Socket) {
+
+    }
+
     addWorld(world: World) {
         world.onCreate();
     }
@@ -81,11 +85,11 @@ export default class GameServer {
     catchUpClient(client: GameClient) {
         // send preliminary data listing existing entities
         const packet = {
-            currentEntites: new Array<[string, EntitySync]>()
+            currentEntites: new Array<string>()
         };
 
         for (const entity of client.world!.entityList) {
-            packet.currentEntites.push([entity.id, entity.type.syncType]);
+            packet.currentEntites.push(entity.id);
         }
 
         client.sendMessage("welcome", packet);
@@ -109,9 +113,9 @@ export default class GameServer {
                     events: EntityEvent[]; // client side entity events (e.g. "explode" in regards to a grenade entity)
                 }
             >(),
-            // new entities and how they should be handled
-            createdEntities: new Array<[string, EntitySync]>(), // [entity id, sync type]
-            // list of entities that should be deleted
+            // list of entities that should be created (ids)
+            createdEntities: new Array<string>(),
+            // list of entities that should be deleted (ids)
             deletedEntities: new Array<string>(),
             // events not belonging to any entity in particular (e.g. "you died")
             gameEvents: cycleData.gameEvents,

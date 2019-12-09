@@ -29,10 +29,7 @@ export default abstract class World {
     private addPendingEntities() {
         for (const entity of this.entityAddQueue) {
             this._addEntity(entity);
-            this.worldCycleData.createdEntities.push([
-                entity.id,
-                entity.type.syncType
-            ]);
+            this.worldCycleData.createdEntities.push(entity.id);
         }
         this.entityAddQueue = [];
     }

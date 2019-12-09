@@ -1,5 +1,5 @@
 import Entity from "./entity";
-import { EntitySync, GameEvent, EntityEvent } from "./enums";
+import { GameEvent, EntityEvent } from "./enums";
 
 export class EntityCycleData {
     events: EntityEvent[] = [];
@@ -9,7 +9,7 @@ export class EntityCycleData {
 
 export class WorldCycleData {
     entityUpdates = new Map<string, EntityCycleData>();
-    createdEntities: [string, EntitySync][] = [];
+    createdEntities: string[] = [];
     deletedEntities: string[] = [];
     gameEvents: GameEvent[] = [];
 }

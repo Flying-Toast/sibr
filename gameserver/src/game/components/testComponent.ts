@@ -2,7 +2,6 @@ import Component from "../../core/component";
 import Entity from "../../core/entity";
 import Vector from "../../core/vector";
 import EntityType from "../../core/entityType";
-import { EntitySync } from "../../core/enums";
 
 export class TestComponent extends Component {
     typeName = "test";
@@ -28,5 +27,4 @@ export class TestComponent extends Component {
 export class TestEntity implements EntityType {
     typeName = "test";
     components = [TestComponent];
-    syncType = EntitySync.synced;
 }
